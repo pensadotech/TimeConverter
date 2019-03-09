@@ -1,12 +1,128 @@
-﻿<Window x:Class="WpfClient.MainWindow"
+﻿<mah:MetroWindow x:Class="WpfClient.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfClient"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Time Converter" 
+        Height="450" Width="800"
+        MinHeight="350" MinWidth="700"
+        MaxHeight="450" MaxWidth="800"
+        GlowBrush="{DynamicResource AccentColorBrush}" 
+        ShowTitleBar="True" 
+        TitleCaps="False"      
+        ShowMaxRestoreButton="True"    
+        ShowCloseButton="True"
+        ShowMinButton="True"    
+        ResizeMode="CanResizeWithGrip"     
+        WindowStartupLocation="CenterScreen"
+        NonActiveGlowBrush="LightGray"
+        NonActiveWindowTitleBrush="LightGray"
+        ShowIconOnTitleBar="True"  
+        Icon="/Images/alarmclock.ico"         
+        >
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Name="CoffeeImage" 
+               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" 
+               MaxHeight="100" MaxWidth="100"
+               Source="/Images/time.jpeg"/>
+
+        <Label Grid.Row="1" Grid.Column="2" Content="Convert Time" FontSize="30" FontWeight="Bold" />
+        <Label Grid.Row="3" Grid.Column="1" Content="Seconds:"  FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="Time (24 hrs):" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
+        <Label Grid.Row="5" Grid.Column="1" Content="Result:" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
+
+        <TextBox Grid.Row="3" Grid.Column="2" 
+                 Name="CoffeeDescriptionTextBox" AcceptsReturn="True" 
+                 mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
+                 mah:TextBoxHelper.Watermark="Time"
+                 mah:TextBoxHelper.UseFloatingWatermark="False"
+                 mah:TextBoxHelper.IsWaitingForData="True"
+                 mah:TextBoxHelper.ClearTextButton="True"
+        />
+
+        <TextBlock Grid.Row="5" Grid.Column="2" Name="ResultTextBox" 
+                   Foreground="Blue" FontWeight="Bold"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="3"
+                    Grid.RowSpan="3"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+            <StackPanel.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.toggleswitch.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </StackPanel.Resources>
+            
+            <Label Content="Convertion Option" 
+                   FontWeight="Bold" 
+                   FontSize="18"/>
+
+            <RadioButton Margin="3"
+                         Content="Secs to Time"
+                         FontSize="18"
+                         GroupName="1" 
+                         IsChecked="True" />
+            <RadioButton Margin="3"
+                         FontSize="18"
+                         Content="Time to Secs"
+                         GroupName="1"
+                         IsChecked="False" />
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="3"
+                     Grid.RowSpan="2"
+                    HorizontalAlignment="Center"
+                     Orientation="Vertical">
+            <StackPanel.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </StackPanel.Resources>
+            
+            <Button Name="ConvertButton" 
+                    Margin="3"
+                    Width="130"
+                    Height="48"  
+                    Content="Convert"
+                    Style="{StaticResource AccentedSquareButtonStyle}"
+                    IsEnabled="{Binding SelectedCoffee.HasNoErrors, Mode=OneWay}"
+                    mah:ButtonHelper.PreserveTextCase="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding ConvertCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+
+        </StackPanel>
+
     </Grid>
-</Window>
+</mah:MetroWindow>
+
