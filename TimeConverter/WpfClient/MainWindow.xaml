@@ -23,7 +23,10 @@
         NonActiveGlowBrush="LightGray"
         NonActiveWindowTitleBrush="LightGray"
         ShowIconOnTitleBar="True"  
-        Icon="/Images/alarmclock.ico"         
+        Icon="/Images/alarmclock.ico" 
+        RightWindowCommandsOverlayBehavior="Never" 
+        WindowButtonCommandsOverlayBehavior="Never"
+        DataContext="{Binding Source={StaticResource viewModelLocaltor},Path=MainWindowViewModel}"         
         >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,6 +42,8 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -50,11 +55,16 @@
 
         <Label Grid.Row="1" Grid.Column="2" Content="Convert Time" FontSize="30" FontWeight="Bold" />
         <Label Grid.Row="3" Grid.Column="1" Content="Seconds:"  FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
-        <Label Grid.Row="4" Grid.Column="1" Content="Time (24 hrs):" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
-        <Label Grid.Row="5" Grid.Column="1" Content="Result:" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="Result (Hrs):" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
+        
+        <Label Grid.Row="6" Grid.Column="1" Content="Time (24 hrs):" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
+        <Label Grid.Row="7" Grid.Column="1" Content="Result(secs):" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
 
         <TextBox Grid.Row="3" Grid.Column="2" 
-                 Name="CoffeeDescriptionTextBox" AcceptsReturn="True" 
+                 Name="TimeInSecsTextBox" 
+                 AcceptsReturn="True" 
+                 Text="{Binding SecondsToConvert, Mode=TwoWay }"
+                 IsEnabled="{Binding ConvertSecondsToHoursAction, Mode=OneWay}"
                  mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                  mah:TextBoxHelper.Watermark="Time"
                  mah:TextBoxHelper.UseFloatingWatermark="False"
@@ -62,11 +72,32 @@
                  mah:TextBoxHelper.ClearTextButton="True"
         />
 
-        <TextBlock Grid.Row="5" Grid.Column="2" Name="ResultTextBox" 
-                   Foreground="Blue" FontWeight="Bold"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" Name="ResultInHrsTextBox" 
+                   Foreground="Blue" FontWeight="Bold"
+                   Text="{Binding ConvertedHours, Mode=OneWay}"
+                   IsEnabled="{Binding ConvertSecondsToHoursAction, StringFormat='HH:MM:SS', Mode=OneWay}"
+                  />
 
+        <TextBox Grid.Row="6" Grid.Column="2" 
+                 Name="TimeInHrsTextBox" 
+                 AcceptsReturn="True"
+                 Text="{Binding HoursToConvert, Mode=TwoWay }"
+                 IsEnabled="{Binding ConvertHoursToSecondsAction, Mode=OneWay}"
+                 mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
+                 mah:TextBoxHelper.Watermark="Time in 24 hrs"
+                 mah:TextBoxHelper.UseFloatingWatermark="False"
+                 mah:TextBoxHelper.IsWaitingForData="True"
+                 mah:TextBoxHelper.ClearTextButton="True"
+        />
+        
+        <TextBlock Grid.Row="7" Grid.Column="2" Name="ResultInSecTextBox" 
+                   Foreground="Blue" FontWeight="Bold"
+                   Text="{Binding ConvertedSeconds, Mode=OneWay}"
+                   IsEnabled="{Binding ConvertHoursToSecondsAction, Mode=OneWay}"
+                   />
+        
         <StackPanel Grid.Row="2" Grid.Column="3"
-                    Grid.RowSpan="3"
+                    Grid.RowSpan="4"
                     HorizontalAlignment="Center"
                     Orientation="Vertical">
             <StackPanel.Resources>
@@ -85,16 +116,16 @@
                          Content="Secs to Time"
                          FontSize="18"
                          GroupName="1" 
-                         IsChecked="True" />
+                         IsChecked="{Binding ConvertSecondsToHoursAction,Mode=TwoWay}" />
             <RadioButton Margin="3"
                          FontSize="18"
                          Content="Time to Secs"
                          GroupName="1"
-                         IsChecked="False" />
+                         IsChecked="{Binding ConvertHoursToSecondsAction,Mode=TwoWay}" />
 
         </StackPanel>
 
-        <StackPanel Grid.Row="5" Grid.Column="3"
+        <StackPanel Grid.Row="6" Grid.Column="3"
                      Grid.RowSpan="2"
                     HorizontalAlignment="Center"
                      Orientation="Vertical">
@@ -112,7 +143,6 @@
                     Height="48"  
                     Content="Convert"
                     Style="{StaticResource AccentedSquareButtonStyle}"
-                    IsEnabled="{Binding SelectedCoffee.HasNoErrors, Mode=OneWay}"
                     mah:ButtonHelper.PreserveTextCase="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">

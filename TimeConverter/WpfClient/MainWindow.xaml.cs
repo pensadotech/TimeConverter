@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using MahApps.Metro.Controls;
+using WpfClient.ViewModels;
 
 namespace WpfClient
 {
@@ -21,10 +22,25 @@ namespace WpfClient
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow
-    {
+    {   
+        // Private members 
+        private MainWindowViewModel _mainWindowViewModel;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            // action to do when this screen is loaded
+            this.Loaded += new RoutedEventHandler(thisWindow_Loaded);
         }
+
+        private void thisWindow_Loaded(object sender, RoutedEventArgs args)
+        {    
+            // Get the view model for this window use teh locator
+            _mainWindowViewModel = ViewModelLocator.MainWindowViewModel;
+            // assign currentWindow propery for this window
+            _mainWindowViewModel.CurrentWindow = (MetroWindow)this;
+        }
+
     }
 }
