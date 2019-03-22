@@ -1,14 +1,13 @@
-﻿using TimeConverter.Service;
-
-namespace WpfClient.ViewModels
+﻿namespace WpfClient.ViewModels
 {
     public class ViewModelLocator
     {
         // Private members
-        private static ITimeConverter _timeConverter = new TimeConverter.Service.TimeConverter();
+        private static readonly TimeConverter.Service.ITimeConverter TimeConverter = 
+            new TimeConverter.Service.TimeConverter();
 
         // IMPORTANT: The ViewModelLocator has to know about all ViewsModels in the application!
-        private static MainWindowViewModel _mainWindowViewModel = new MainWindowViewModel(_timeConverter);
+        private static MainWindowViewModel _mainWindowViewModel = new MainWindowViewModel(TimeConverter);
 
         // Constructors .....................................
         public ViewModelLocator()

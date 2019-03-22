@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -18,7 +19,7 @@ namespace WpfClient.ViewModels
         // Private members .............................................
         private ITimeConverter _timeConverter;  // time functions service
         private MetroWindow _currentWindow;     // parent window property
-        private float _secondsToConvert;
+        private double _secondsToConvert;
         private string _convertedHours;
         private DateTime _hoursToConvert;
         private string _convertedSeconds;
@@ -44,7 +45,7 @@ namespace WpfClient.ViewModels
             set { _currentWindow = value; }
         }
        
-        public float SecondsToConvert
+        public double SecondsToConvert
         {
             get { return _secondsToConvert; }
             set
@@ -124,6 +125,7 @@ namespace WpfClient.ViewModels
 
         // Commands 
         public ICommand ConvertCommand { get; set; }
+        public ICommand RefreshTimeCommand { get; set; }
 
         // Constructors .......................................
         public MainWindowViewModel(ITimeConverter timeConverter)
@@ -134,31 +136,42 @@ namespace WpfClient.ViewModels
             // Prepare commands 
             LoadCommands();
 
+            // Initialize Screen
+            InitializeScreen();
+
+            // Initialize Selection Box
+            ConvertSecondsToHoursAction = true;
+            ConvertHoursToSecondsAction = false;
+        }
+
+        private void InitializeScreen()
+        {
             // Iitialize values
-            _secondsToConvert = 0;
-            _convertedHours = "";
-            _hoursToConvert = DateTime.Now;
-            _convertedSeconds = "";
-            // Selection Box
-            _convertSecondsToHoursAction = true;
-            _convertHoursToSecondsAction = false;
+            DateTime curentTime = DateTime.Now;
+            SecondsToConvert = _timeConverter.ConvertString24HrTimeToSeconds(curentTime.ToString("HH:mm:ss"));
+            ConvertedHours = "";
+            HoursToConvert = curentTime;
+            ConvertedSeconds = "";
         }
 
         private void LoadCommands()
         {
             ConvertCommand = new CustomCommand(ConvertTime, CanConvertTime);
+            RefreshTimeCommand = new CustomCommand(RefreshTime, CanRefreshTime);
         }
 
         private void ConvertTime(object obj)
         {
+            if (_convertSecondsToHoursAction)
+            {
+                DateTime resultDateTime = _timeConverter.ConvertSecondsToCurrentDateTime(_secondsToConvert);
+                ConvertedHours = resultDateTime.ToString("HH:mm:ss");
 
-            float second = _secondsToConvert;
-            string convertedHours = _convertedHours;
-            DateTime hoursToConvert = _hoursToConvert;
-            string convertedSeconds = _convertedSeconds;
-            bool convertSecondsToHoursAction = _convertSecondsToHoursAction;
-            bool convertHoursToSecondsAction = _convertHoursToSecondsAction;
-
+            } else if (_convertHoursToSecondsAction)
+            {
+                double resultSecs = _timeConverter.ConvertString24HrTimeToSeconds(_hoursToConvert.ToString("HH:mm:ss"));
+                ConvertedSeconds = $"{resultSecs:#,#0.00}"; // to String
+            }
         }
 
         private bool CanConvertTime(object obj)
@@ -166,6 +179,16 @@ namespace WpfClient.ViewModels
             return true;
         }
 
+        private void RefreshTime(object obj)
+        {
+            // Initialize Screen
+            InitializeScreen();
+        }
+
+        private bool CanRefreshTime(object obj)
+        {
+            return true;
+        }
 
     }
 }

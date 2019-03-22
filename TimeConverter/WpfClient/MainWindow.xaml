@@ -48,12 +48,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Image Name="CoffeeImage" 
+        <Image Name="TimeImage" 
                Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" 
                MaxHeight="100" MaxWidth="100"
                Source="/Images/time.jpeg"/>
 
-        <Label Grid.Row="1" Grid.Column="2" Content="Convert Time" FontSize="30" FontWeight="Bold" />
+        <Label Grid.Row="1" Grid.Column="2" Content="Time in Seconds" FontSize="30" FontWeight="Bold" />
         <Label Grid.Row="3" Grid.Column="1" Content="Seconds:"  FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
         <Label Grid.Row="4" Grid.Column="1" Content="Result (Hrs):" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
         
@@ -62,39 +62,61 @@
 
         <TextBox Grid.Row="3" Grid.Column="2" 
                  Name="TimeInSecsTextBox" 
-                 AcceptsReturn="True" 
-                 Text="{Binding SecondsToConvert, Mode=TwoWay }"
-                 IsEnabled="{Binding ConvertSecondsToHoursAction, Mode=OneWay}"
+                 AcceptsReturn="True"
+                 FontSize="20" VerticalAlignment="Center"
                  mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                  mah:TextBoxHelper.Watermark="Time"
                  mah:TextBoxHelper.UseFloatingWatermark="False"
                  mah:TextBoxHelper.IsWaitingForData="True"
-                 mah:TextBoxHelper.ClearTextButton="True"
-        />
+                 mah:TextBoxHelper.ClearTextButton="True">
+            <TextBox.IsEnabled>
+                <Binding Path="ConvertSecondsToHoursAction" Mode="OneWay" />
+            </TextBox.IsEnabled>
+            <TextBox.Text>
+                <Binding Path="SecondsToConvert" StringFormat="{}{0:#,#.00}" Mode="TwoWay" />
+            </TextBox.Text>
+        </TextBox>
 
-        <TextBlock Grid.Row="4" Grid.Column="2" Name="ResultInHrsTextBox" 
+        <TextBlock Grid.Row="4" Grid.Column="2" 
+                   Name="ResultInHrsTextBox" 
                    Foreground="Blue" FontWeight="Bold"
-                   Text="{Binding ConvertedHours, Mode=OneWay}"
-                   IsEnabled="{Binding ConvertSecondsToHoursAction, StringFormat='HH:MM:SS', Mode=OneWay}"
-                  />
+                   FontSize="20" VerticalAlignment="Center" >
+            <TextBlock.IsEnabled>
+                <Binding Path="ConvertSecondsToHoursAction" Mode="OneWay" />
+            </TextBlock.IsEnabled>
+            <TextBlock.Text>
+                <Binding Path="ConvertedHours" StringFormat="HH:mm:ss" Mode="OneWay" />
+            </TextBlock.Text>
+        </TextBlock>
 
         <TextBox Grid.Row="6" Grid.Column="2" 
                  Name="TimeInHrsTextBox" 
                  AcceptsReturn="True"
-                 Text="{Binding HoursToConvert, Mode=TwoWay }"
-                 IsEnabled="{Binding ConvertHoursToSecondsAction, Mode=OneWay}"
+                 FontSize="20" VerticalAlignment="Center"
                  mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                  mah:TextBoxHelper.Watermark="Time in 24 hrs"
                  mah:TextBoxHelper.UseFloatingWatermark="False"
                  mah:TextBoxHelper.IsWaitingForData="True"
-                 mah:TextBoxHelper.ClearTextButton="True"
-        />
-        
-        <TextBlock Grid.Row="7" Grid.Column="2" Name="ResultInSecTextBox" 
+                 mah:TextBoxHelper.ClearTextButton="True">
+            <TextBox.IsEnabled>
+                <Binding Path="ConvertHoursToSecondsAction" Mode="OneWay" />
+            </TextBox.IsEnabled>
+            <TextBox.Text>
+                <Binding Path="HoursToConvert" StringFormat="HH:mm:ss" Mode="TwoWay" />
+            </TextBox.Text>
+        </TextBox>
+
+        <TextBlock Grid.Row="7" Grid.Column="2" 
+                   Name="ResultInSecTextBox" 
                    Foreground="Blue" FontWeight="Bold"
-                   Text="{Binding ConvertedSeconds, Mode=OneWay}"
-                   IsEnabled="{Binding ConvertHoursToSecondsAction, Mode=OneWay}"
-                   />
+                   FontSize="20" VerticalAlignment="Center">
+            <TextBlock.IsEnabled>
+                <Binding Path="ConvertHoursToSecondsAction" Mode="OneWay" />
+            </TextBlock.IsEnabled>
+            <TextBlock.Text>
+                <Binding Path="ConvertedSeconds" Mode="OneWay" />
+            </TextBlock.Text>
+        </TextBlock>
         
         <StackPanel Grid.Row="2" Grid.Column="3"
                     Grid.RowSpan="4"
@@ -126,7 +148,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="6" Grid.Column="3"
-                     Grid.RowSpan="2"
+                     Grid.RowSpan="3"
                     HorizontalAlignment="Center"
                      Orientation="Vertical">
             <StackPanel.Resources>
@@ -147,6 +169,20 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding ConvertCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+
+            <Button Name="RefreshTimeButton" 
+                    Margin="3"
+                    Width="130"
+                    Height="48"  
+                    Content="Refresh"
+                    Style="{StaticResource AccentedSquareButtonStyle}"
+                    mah:ButtonHelper.PreserveTextCase="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding RefreshTimeCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
