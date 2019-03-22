@@ -164,11 +164,13 @@ namespace WpfClient.ViewModels
         {
             if (_convertSecondsToHoursAction)
             {
+                // Convert entered seconds into DateTime and retunr time into screen
                 DateTime resultDateTime = _timeConverter.ConvertSecondsToCurrentDateTime(_secondsToConvert);
                 ConvertedHours = resultDateTime.ToString("HH:mm:ss");
 
             } else if (_convertHoursToSecondsAction)
             {
+                // Convert time in 24 hrs into seconds and display result in screen 
                 double resultSecs = _timeConverter.ConvertString24HrTimeToSeconds(_hoursToConvert.ToString("HH:mm:ss"));
                 ConvertedSeconds = $"{resultSecs:#,#0.00}"; // to String
             }
