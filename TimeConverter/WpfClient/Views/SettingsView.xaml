@@ -28,7 +28,6 @@
         <Label Grid.Row="0" Grid.Column="0" Content="Accent Color" />
         <Label Grid.Row="1" Grid.Column="0" Content="App Theme" />
 
-
         <ComboBox Grid.Row="0" Grid.Column="1"
                   ItemsSource="{Binding AccentColors}"
                   SelectedItem="{Binding SelectedAccentColor}"

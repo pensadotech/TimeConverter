@@ -98,42 +98,14 @@ namespace WpfClient.ViewModels
         // Constructors .......................................
         public SettingsViewModel()
         {
+            // todo: load colors and themes from settings
+
             // Prepare commands 
-            LoadAccentColorsAndThemes();
             LoadCommands();
-            
-        }
-
-        // Colors and themes ...................................................
-        public void LoadAccentColorsAndThemes()
-        {
-            // create accent color menu items for the demo
-            _accentColorDataList = ThemeManager.Accents
-                .Select(a => new AccentColorData()
-                    {
-                        Name = a.Name,
-                        ColorBrush = a.Resources["AccentColorBrush"] as Brush
-                    }
-                ).ToList().ToObservableCollection();
-
-            // create metro theme color menu items for the demo
-            _appThemeDataList = ThemeManager.AppThemes
-                .Select(a => new AppThemeData()
-                    {
-                        Name = a.Name,
-                        BorderColorBrush = a.Resources["BlackColorBrush"] as Brush,
-                        ColorBrush = a.Resources["WhiteColorBrush"] as Brush
-                    }
-                ).ToList().ToObservableCollection();
-
-            // Detect current Accent Color
-            Tuple<AppTheme, Accent> appStyle = ThemeManager.DetectAppStyle(Application.Current);
-            _selectedAccentColorData = _accentColorDataList.FirstOrDefault(a => a.Name == appStyle.Item2.Name);
-
-            // Detect current Aplicaiton Theme 
-            Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
-            _SelectedAppThemeData = _appThemeDataList.FirstOrDefault(t => t.Name == theme.Item1.Name);
-
+            // Load collors and themes
+            LoadAccentColorsAndThemes();
+            // apply colors and them to screen
+            InitializeColorAndTheme();
         }
 
         // Commands ............................................................
@@ -144,15 +116,19 @@ namespace WpfClient.ViewModels
 
         private void SaveSettings(object obj)
         {
-            SetAccentColor();
-            SetAppTheme();
+            // Apply color and theme
+            ApplyAccentColor(_selectedAccentColorData);
+            ApplyAppTheme(_SelectedAppThemeData);
 
+            // todo: Save color and theme in config file
+
+            // Prepare message for parent window
             var settingMsg = new SettingMessage()
             {
                 IsOpen = false
             };
 
-            // Message out 
+            // Send message 
             // Note: For multi message, use context in order to have a unique identifier
             Messenger.Default.Send<SettingMessage>(settingMsg, "Flyout");
         }
@@ -162,19 +138,67 @@ namespace WpfClient.ViewModels
             return true;
         }
 
-        // Saving Colors and Theme ................................................
-        private void SetAccentColor()
+        // Colors and themes ...................................................
+        public void LoadAccentColorsAndThemes()
         {
-            Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
-            Accent accent = ThemeManager.GetAccent(SelectedAccentColor.Name);
-            ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
+            // Get a list of available Accent Colors
+            _accentColorDataList = ThemeManager.Accents
+                .Select(a => new AccentColorData()
+                    {
+                        Name = a.Name,
+                        ColorBrush = a.Resources["AccentColorBrush"] as Brush
+                    }
+                ).ToList().ToObservableCollection();
+
+            // Get a list of available Themes
+            _appThemeDataList = ThemeManager.AppThemes
+                .Select(a => new AppThemeData()
+                    {
+                        Name = a.Name,
+                        BorderColorBrush = a.Resources["BlackColorBrush"] as Brush,
+                        ColorBrush = a.Resources["WhiteColorBrush"] as Brush
+                    }
+                ).ToList().ToObservableCollection();
         }
 
-        private void SetAppTheme()
+        public void InitializeColorAndTheme()
         {
-            Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
-            AppTheme appTheme = ThemeManager.GetAppTheme(SelectedThemeData.Name);
-            ThemeManager.ChangeAppStyle(Application.Current, theme.Item2, appTheme);
+            // if not color and theme has been defined yet, use application current color, 
+            // otherwise apply the one from the settings
+            if (_selectedAccentColorData == null || _SelectedAppThemeData == null)
+            {
+                // Detect application current Accent Color and Theme
+                Tuple<AppTheme, Accent> appStyle = ThemeManager.DetectAppStyle(Application.Current);
+                Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
+
+                // Look AccentColor and theme in the available list, save it 
+                _selectedAccentColorData = _accentColorDataList.FirstOrDefault(a => a.Name == appStyle.Item2.Name);
+                // Look Theme Data in the available list, and apply it
+                _SelectedAppThemeData = _appThemeDataList.FirstOrDefault(t => t.Name == theme.Item1.Name);
+
+            }
+
+            // Apply color and theme
+            ApplyAccentColor(_selectedAccentColorData);
+            ApplyAppTheme(_SelectedAppThemeData);
         }
+        
+        // Apply Accent color and Theme
+        // Note: Keep color and them in independent functions, otherwise the ChnageAppStyle
+        // works for the last element. There must be a way to apply both at same time
+        private void ApplyAccentColor(AccentColorData tgtAccentColor)
+        {
+            Tuple<AppTheme, Accent> appStyle = ThemeManager.DetectAppStyle(Application.Current);
+            Accent accentColor = ThemeManager.GetAccent(tgtAccentColor.Name);
+            ThemeManager.ChangeAppStyle(Application.Current, accentColor, appStyle.Item1);
+        }
+
+        private void ApplyAppTheme(AppThemeData tgtThemeData)
+        {
+            Tuple<AppTheme, Accent> appStyle = ThemeManager.DetectAppStyle(Application.Current);
+            AppTheme theme = ThemeManager.GetAppTheme(tgtThemeData.Name);
+            ThemeManager.ChangeAppStyle(Application.Current, appStyle.Item2, theme);
+        }
+
     }
 }

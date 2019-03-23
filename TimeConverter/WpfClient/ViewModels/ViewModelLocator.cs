@@ -7,6 +7,8 @@
         private static readonly TimeConverter.Service.ITimeConverter TimeConverter = 
             new TimeConverter.Service.TimeConverter();
 
+        // todo: add a service to handle configuration for the app
+
         // The ViewModelLocator has to know about all ViewsModels in the application!
         private static MainWindowViewModel _mainWindowViewModel = new MainWindowViewModel(TimeConverter);
 
