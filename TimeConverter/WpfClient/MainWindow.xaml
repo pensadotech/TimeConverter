@@ -7,6 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:views="clr-namespace:WpfClient.Views"
         mc:Ignorable="d"
         Title="Time Converter" 
         Height="450" Width="800"
@@ -14,7 +15,7 @@
         MaxHeight="450" MaxWidth="800"
         GlowBrush="{DynamicResource AccentColorBrush}" 
         ShowTitleBar="True" 
-        TitleCaps="False"      
+        TitleCharacterCasing="Normal"
         ShowMaxRestoreButton="True"    
         ShowCloseButton="True"
         ShowMinButton="True"    
@@ -28,7 +29,48 @@
         WindowButtonCommandsOverlayBehavior="Never"
         DataContext="{Binding Source={StaticResource viewModelLocaltor},Path=MainWindowViewModel}"         
         >
-    <Grid>
+    
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout
+                Name="SettingsFlyout"
+                Position="Right"
+                AreAnimationsEnabled="True"
+                Header="Settings"
+                Theme="Inverse"
+                IsModal="True"
+                IsOpen="{Binding IsSettingsFlyoutOpen, Mode=TwoWay}">
+                <views:SettingsView/>
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+    
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Command="{Binding SettingsCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Settings" />
+                </StackPanel>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+    
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Source="/Images/alarmclock.ico"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+    
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="150"/>
@@ -163,7 +205,7 @@
                     Margin="3"
                     Width="130"
                     Height="48"  
-                    Content="Convert"
+                    Content="Convert Time"
                     Style="{StaticResource AccentedSquareButtonStyle}"
                     mah:ButtonHelper.PreserveTextCase="True">
                 <i:Interaction.Triggers>
@@ -174,10 +216,10 @@
             </Button>
 
             <Button Name="RefreshTimeButton" 
-                    Margin="3"
+                    Margin="10"
                     Width="130"
                     Height="48"  
-                    Content="Refresh"
+                    Content="Refresh Time"
                     Style="{StaticResource AccentedSquareButtonStyle}"
                     mah:ButtonHelper.PreserveTextCase="True">
                 <i:Interaction.Triggers>

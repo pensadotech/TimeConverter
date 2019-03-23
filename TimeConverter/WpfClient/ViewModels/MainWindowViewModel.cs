@@ -10,6 +10,8 @@ using System.Windows.Data;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
 using TimeConverter.Service;
+using WpfClient.Extensions;
+using WpfClient.Messages;
 using WpfClient.Utilities;
 
 namespace WpfClient.ViewModels
@@ -17,14 +19,19 @@ namespace WpfClient.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         // Private members .............................................
-        private ITimeConverter _timeConverter;  // time functions service
-        private MetroWindow _currentWindow;     // parent window property
+        // Services
+        private ITimeConverter _timeConverter;  
+        // parent window property
+        private MetroWindow _currentWindow;     
+        // Properties
         private double _secondsToConvert;
         private string _convertedHours;
         private DateTime _hoursToConvert;
         private string _convertedSeconds;
         private bool _convertSecondsToHoursAction;
         private bool _convertHoursToSecondsAction;
+        // Flyout
+        private bool _isSettingsFlyoutOpen;
 
         // INotifyPropertyChanged event ............................
         public event PropertyChangedEventHandler PropertyChanged;
@@ -123,9 +130,24 @@ namespace WpfClient.ViewModels
             }
         }
 
+        public bool IsSettingsFlyoutOpen
+        {
+            get { return _isSettingsFlyoutOpen; }
+            set
+            {
+                if (value != _isSettingsFlyoutOpen)
+                {
+                    _isSettingsFlyoutOpen = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
         // Commands 
         public ICommand ConvertCommand { get; set; }
         public ICommand RefreshTimeCommand { get; set; }
+        public ICommand SettingsCommand { get; set; }
 
         // Constructors .......................................
         public MainWindowViewModel(ITimeConverter timeConverter)
@@ -137,14 +159,20 @@ namespace WpfClient.ViewModels
             LoadCommands();
 
             // Initialize Screen
-            InitializeScreen();
+            InitializeScreen(true);
 
-            // Initialize Selection Box
-            ConvertSecondsToHoursAction = true;
-            ConvertHoursToSecondsAction = false;
+            // Register to messanger
+            // Note: For multi message, use context in order to have a unique identifier
+            Messenger.Default.Register<SettingMessage>(this, OnSettingMessageReceived, "Flyout");
         }
 
-        private void InitializeScreen()
+        // Methods .............................................
+
+        /// <summary>
+        /// Initialize screen 
+        /// </summary>
+        /// <param name="initSelecionBox"></param>
+        private void InitializeScreen(bool initSelecionBox)
         {
             // Iitialize values
             DateTime curentTime = DateTime.Now;
@@ -152,12 +180,28 @@ namespace WpfClient.ViewModels
             ConvertedHours = "";
             HoursToConvert = curentTime;
             ConvertedSeconds = "";
+
+            if (initSelecionBox)
+            {
+                // Initialize Selection Box
+                ConvertSecondsToHoursAction = true;
+                ConvertHoursToSecondsAction = false;
+            }
         }
 
+        // Messages ..................................
+        private void OnSettingMessageReceived(SettingMessage obj)
+        {
+            var settingMessage = obj as SettingMessage;
+            IsSettingsFlyoutOpen = settingMessage.IsOpen;
+        }
+
+        // commands .........................................
         private void LoadCommands()
         {
             ConvertCommand = new CustomCommand(ConvertTime, CanConvertTime);
             RefreshTimeCommand = new CustomCommand(RefreshTime, CanRefreshTime);
+            SettingsCommand = new CustomCommand(OpenSettings, CanOpenSettings);
         }
 
         private void ConvertTime(object obj)
@@ -184,10 +228,32 @@ namespace WpfClient.ViewModels
         private void RefreshTime(object obj)
         {
             // Initialize Screen
-            InitializeScreen();
+            InitializeScreen(false);
         }
 
         private bool CanRefreshTime(object obj)
+        {
+            return true;
+        }
+
+        public void OpenSettings(object obj)
+        {
+            IsSettingsFlyoutOpen = true;
+
+            // Option #1 : Traditional look (no Flyouts)
+            // The settings need to be a MetroContentControl
+            // and it is emebeded into a new window
+            //var w = new Window();
+            //w.Title = "Settings";
+            //w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            //w.Content=new SettingsView();
+            //w.SizeToContent = SizeToContent.WidthAndHeight;
+            //w.Owner = Application.Current.MainWindow;
+            //w.ShowDialog();
+
+        }
+
+        public bool CanOpenSettings(object obj)
         {
             return true;
         }

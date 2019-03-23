@@ -1,0 +1,76 @@
+﻿<mah:MetroContentControl x:Class="WpfClient.Views.SettingsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfClient.Views"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Height="160" Width="320" 
+      VerticalAlignment="Top"
+      DataContext="{Binding Source={StaticResource viewModelLocaltor},Path=SettingsViewModel}"                      
+      >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Accent Color" />
+        <Label Grid.Row="1" Grid.Column="0" Content="App Theme" />
+
+
+        <ComboBox Grid.Row="0" Grid.Column="1"
+                  ItemsSource="{Binding AccentColors}"
+                  SelectedItem="{Binding SelectedAccentColor}"
+                  IsSynchronizedWithCurrentItem="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="16" Height="16"
+                                 Fill="{Binding ColorBrush, Mode=OneWay}"
+                                 Stroke="{Binding BorderColorBrush, Mode=OneWay}"
+                                 StrokeThickness="1"/>
+                        <Label Content="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <ComboBox Grid.Row="1" Grid.Column="1"
+                  ItemsSource="{Binding AppThemes}"
+                  SelectedItem="{Binding SelectedThemeData}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="16" Height="16"
+                                 Fill="{Binding ColorBrush, Mode=OneWay}"
+                                 Stroke="{Binding BorderColorBrush, Mode=OneWay}"
+                                 StrokeThickness="1"/>
+                        <Label Content="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Button Grid.Row="3" Grid.Column="1"
+                Name="SaveCoffeeButton" 
+                Margin="3"  Width="100"  
+                HorizontalAlignment="Right"
+                Content="Save Settings"
+                mah:ButtonHelper.PreserveTextCase="True"
+                Command="{Binding SaveSettingsCommad}"/>
+
+    </Grid>
+    
+</mah:MetroContentControl>
+
