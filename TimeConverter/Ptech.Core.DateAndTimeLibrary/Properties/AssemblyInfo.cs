@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DateAndTimeLibrary")]
+[assembly: AssemblyTitle("Ptech.Core.DateAndTimeLibrary")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DateAndTimeLibrary")]
+[assembly: AssemblyProduct("Ptech.Core.DateAndTimeLibrary")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7d0e1a94-fdf8-4282-885d-11ebbd16ab06")]
+[assembly: Guid("bddd5516-65ef-4c32-945e-c354b940839c")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4FA23AFF-9902-43AA-84ED-2AC2FD30E2AB}</ProjectGuid>
+    <ProjectGuid>{B0271565-A61C-4B01-89A7-60300D62D43B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TimeConverter.Service</RootNamespace>
-    <AssemblyName>TimeConverter.Service</AssemblyName>
+    <RootNamespace>Ptech.Core.SerializationLibrary</RootNamespace>
+    <AssemblyName>Ptech.Core.SerializationLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,14 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfigHandler.cs" />
-    <Compile Include="Configuration\ApplicationConfig.cs" />
-    <Compile Include="Configuration\ConfigItem.cs" />
-    <Compile Include="Configuration\XmlLoadCfg.cs" />
-    <Compile Include="Configuration\XmlSaveCfg.cs" />
-    <Compile Include="IAppConfigHandler.cs" />
-    <Compile Include="ITimeConverter.cs" />
-    <Compile Include="TimeConverter.cs" />
+    <Compile Include="BinarySerializationFunctions.cs" />
+    <Compile Include="DataContractSerializationFunctions.cs" />
+    <Compile Include="XmlSerializationFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

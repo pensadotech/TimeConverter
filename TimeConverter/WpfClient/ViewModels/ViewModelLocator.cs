@@ -1,19 +1,20 @@
-﻿namespace WpfClient.ViewModels
+﻿
+namespace WpfClient.ViewModels
 {
     public class ViewModelLocator
     {
         // Private members..................................
-        // Connect Busines Logic layer, in this case time conversion logic
+        // Time Conversion Logic
         private static readonly TimeConverter.Service.ITimeConverter TimeConverter = 
             new TimeConverter.Service.TimeConverter();
-
-        // todo: add a service to handle configuration for the app
+        // Configuration service
+        private static TimeConverter.Service.IAppConfigHandler _applicationConfig = 
+             new TimeConverter.Service.AppConfigHandler("TimeConverter.xml");
 
         // The ViewModelLocator has to know about all ViewsModels in the application!
         private static MainWindowViewModel _mainWindowViewModel = new MainWindowViewModel(TimeConverter);
-
         // Flyouts ViewModels
-        private static SettingsViewModel _settingsViewModel = new SettingsViewModel();
+        private static SettingsViewModel _settingsViewModel = new SettingsViewModel(_applicationConfig);
 
         // Constructors .....................................
         public ViewModelLocator()

@@ -5,11 +5,21 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeConverter.WpfClient", "WpfClient\TimeConverter.WpfClient.csproj", "{D3FB3278-C268-4B5E-83A2-255853FF5C45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateAndTimeTest", "DateAndTimeTest\DateAndTimeTest.csproj", "{8D0A8B81-E462-4930-9EA4-3855E98C0BA3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateAndTimeLibrary", "DateAndTimeLibrary\DateAndTimeLibrary.csproj", "{7D0E1A94-FDF8-4282-885D-11EBBD16AB06}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeConverter.Service", "TimeConverter.Service\TimeConverter.Service.csproj", "{4FA23AFF-9902-43AA-84ED-2AC2FD30E2AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeConverter.DataAccess", "TimeConverter.DataAccess\TimeConverter.DataAccess.csproj", "{A3C2844E-7A1F-4A59-988E-39FC62B3C221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeConverter.Domain", "TimeConverter.Domain\TimeConverter.Domain.csproj", "{CC98EAB8-0161-4B93-B1E9-B67F423576E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ptech.Core.SerializationLibrary", "Ptech.Core.SerializationLibrary\Ptech.Core.SerializationLibrary.csproj", "{B0271565-A61C-4B01-89A7-60300D62D43B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ptech.Core.DateAndTimeLibrary", "Ptech.Core.DateAndTimeLibrary\Ptech.Core.DateAndTimeLibrary.csproj", "{BDDD5516-65EF-4C32-945E-C354B940839C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ptech.Core.DateAndTimeLibrary.Test", "Ptech.Core.DateAndTimeLibrary.Test\Ptech.Core.DateAndTimeLibrary.Test.csproj", "{BDAC4813-6674-4DE7-9A56-ED556FEA3E93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ptech.Core.SerializationLibrary.Test", "Ptech.Core.SerializationLibrary.Test\Ptech.Core.SerializationLibrary.Test.csproj", "{DF27C134-31CF-4A52-B720-BD53452FD3B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreLibraries", "CoreLibraries", "{DA77E2B9-6BAA-45AB-B628-0DB527321E89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,21 +31,43 @@ Global
 		{D3FB3278-C268-4B5E-83A2-255853FF5C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3FB3278-C268-4B5E-83A2-255853FF5C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3FB3278-C268-4B5E-83A2-255853FF5C45}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D0A8B81-E462-4930-9EA4-3855E98C0BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D0A8B81-E462-4930-9EA4-3855E98C0BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D0A8B81-E462-4930-9EA4-3855E98C0BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D0A8B81-E462-4930-9EA4-3855E98C0BA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D0E1A94-FDF8-4282-885D-11EBBD16AB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D0E1A94-FDF8-4282-885D-11EBBD16AB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D0E1A94-FDF8-4282-885D-11EBBD16AB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D0E1A94-FDF8-4282-885D-11EBBD16AB06}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FA23AFF-9902-43AA-84ED-2AC2FD30E2AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FA23AFF-9902-43AA-84ED-2AC2FD30E2AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FA23AFF-9902-43AA-84ED-2AC2FD30E2AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FA23AFF-9902-43AA-84ED-2AC2FD30E2AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C2844E-7A1F-4A59-988E-39FC62B3C221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C2844E-7A1F-4A59-988E-39FC62B3C221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C2844E-7A1F-4A59-988E-39FC62B3C221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C2844E-7A1F-4A59-988E-39FC62B3C221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC98EAB8-0161-4B93-B1E9-B67F423576E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC98EAB8-0161-4B93-B1E9-B67F423576E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC98EAB8-0161-4B93-B1E9-B67F423576E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC98EAB8-0161-4B93-B1E9-B67F423576E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0271565-A61C-4B01-89A7-60300D62D43B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0271565-A61C-4B01-89A7-60300D62D43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0271565-A61C-4B01-89A7-60300D62D43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0271565-A61C-4B01-89A7-60300D62D43B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDDD5516-65EF-4C32-945E-C354B940839C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDDD5516-65EF-4C32-945E-C354B940839C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDDD5516-65EF-4C32-945E-C354B940839C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDDD5516-65EF-4C32-945E-C354B940839C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDAC4813-6674-4DE7-9A56-ED556FEA3E93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDAC4813-6674-4DE7-9A56-ED556FEA3E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDAC4813-6674-4DE7-9A56-ED556FEA3E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDAC4813-6674-4DE7-9A56-ED556FEA3E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF27C134-31CF-4A52-B720-BD53452FD3B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF27C134-31CF-4A52-B720-BD53452FD3B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF27C134-31CF-4A52-B720-BD53452FD3B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF27C134-31CF-4A52-B720-BD53452FD3B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B0271565-A61C-4B01-89A7-60300D62D43B} = {DA77E2B9-6BAA-45AB-B628-0DB527321E89}
+		{BDDD5516-65EF-4C32-945E-C354B940839C} = {DA77E2B9-6BAA-45AB-B628-0DB527321E89}
+		{BDAC4813-6674-4DE7-9A56-ED556FEA3E93} = {DA77E2B9-6BAA-45AB-B628-0DB527321E89}
+		{DF27C134-31CF-4A52-B720-BD53452FD3B0} = {DA77E2B9-6BAA-45AB-B628-0DB527321E89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBA8D69B-65A1-414E-B27D-F9A631CC3A40}

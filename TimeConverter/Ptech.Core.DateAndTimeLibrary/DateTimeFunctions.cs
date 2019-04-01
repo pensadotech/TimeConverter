@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DateAndTimeLibrary
+namespace Ptech.Core.DateAndTimeLibrary
 {
-    public class DateAndTimeFunctions
+    public class DateTimeFunctions
     {
         public static DateTime ConvertSecondsToCurrentDateTime(double secSinceMidnight)
         {

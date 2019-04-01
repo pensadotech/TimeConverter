@@ -1,11 +1,11 @@
 ﻿using System;
-using DateAndTimeLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ptech.Core.DateAndTimeLibrary;
 
-namespace DateAndTimeTest
+namespace Ptech.Core.DateAndTimeLibrary.Test
 {
     [TestClass]
-    public class DateAndTimeTest
+    public class DateTimeFunctionsTest
     {
         [TestClass]
         public class UnitTest1
@@ -18,7 +18,7 @@ namespace DateAndTimeTest
                 DateTime refDateTime = DateTime.Today.AddSeconds(refSeconds);
 
                 // convert 
-                DateTime resultDateTime = DateAndTimeFunctions.ConvertSecondsToCurrentDateTime(refSeconds);
+                DateTime resultDateTime = DateTimeFunctions.ConvertSecondsToCurrentDateTime(refSeconds);
 
                 Assert.AreEqual(refDateTime, resultDateTime);
             }
@@ -31,7 +31,7 @@ namespace DateAndTimeTest
                 string target24Time = "12:23:34.235";
 
                 // convert
-                double resultSecs = DateAndTimeFunctions.ConvertString24HrTimeToSeconds(target24Time);
+                double resultSecs = DateTimeFunctions.ConvertString24HrTimeToSeconds(target24Time);
 
                 Assert.AreEqual(refSeconds, resultSecs);
             }
@@ -43,7 +43,7 @@ namespace DateAndTimeTest
                 DateTime targetDateTime = DateTime.Today.AddSeconds(refSeconds);
 
                 // Convert
-                double resultSecs = DateAndTimeFunctions.ConvertDateTimeToSeconds(targetDateTime);
+                double resultSecs = DateTimeFunctions.ConvertDateTimeToSeconds(targetDateTime);
 
                 Assert.AreEqual(refSeconds, resultSecs);
 

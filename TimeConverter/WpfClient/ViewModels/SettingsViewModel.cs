@@ -32,6 +32,13 @@ namespace WpfClient.ViewModels
         }
 
         // Private memebers .....................................
+        // Keys for operation
+        private const string Color_Config_Key = "Color";
+        private const string Theme_Config_Key = "Theme";
+        private const string Flyout_msg_key = "Flyout";
+        // Config service
+        private TimeConverter.Service.IAppConfigHandler _applicationConfigHandler;
+        // Parameters
         private ObservableCollection<AccentColorData> _accentColorDataList;
         private ObservableCollection<AppThemeData> _appThemeDataList;
         private AccentColorData _selectedAccentColorData;
@@ -96,19 +103,38 @@ namespace WpfClient.ViewModels
         public ICommand SaveSettingsCommad { get; set; }
 
         // Constructors .......................................
-        public SettingsViewModel()
+        public SettingsViewModel(TimeConverter.Service.IAppConfigHandler applicationConfig)
         {
-            // todo: load colors and themes from settings
-
+            // configuration service to use
+            _applicationConfigHandler = applicationConfig;
             // Prepare commands 
             LoadCommands();
             // Load collors and themes
             LoadAccentColorsAndThemes();
+            // Load colors and themes from settings
+            LoadColrAndThemeFromSettings();
             // apply colors and them to screen
             InitializeColorAndTheme();
         }
 
-        // Commands ............................................................
+        // Methods .........................................................
+        private void LoadColrAndThemeFromSettings()
+        {   
+            // get from config object the settings fro Coloer and Theme
+            string colorSetting = _applicationConfigHandler.GetConfigItemValue(Color_Config_Key);
+            string themeSetting = _applicationConfigHandler.GetConfigItemValue(Theme_Config_Key);
+
+            // If found, convert to accent color and theme data
+            if (colorSetting != String.Empty && themeSetting != String.Empty)
+            {
+                // Look AccentColor and theme in the available list, save it 
+                _selectedAccentColorData = _accentColorDataList.FirstOrDefault(a => a.Name == colorSetting);
+                // Look Theme Data in the available list, and apply it
+                _SelectedAppThemeData = _appThemeDataList.FirstOrDefault(t => t.Name == themeSetting);
+            }
+        }
+        
+        // Commands 
         private void LoadCommands()
         {
             SaveSettingsCommad = new CustomCommand(SaveSettings, CanSaveSettings);
@@ -120,7 +146,10 @@ namespace WpfClient.ViewModels
             ApplyAccentColor(_selectedAccentColorData);
             ApplyAppTheme(_SelectedAppThemeData);
 
-            // todo: Save color and theme in config file
+            // SAVE: set color and theme in config file, and save the file
+            _applicationConfigHandler.SetConfigItem(Color_Config_Key, _selectedAccentColorData.Name);
+            _applicationConfigHandler.SetConfigItem(Theme_Config_Key, _SelectedAppThemeData.Name);
+            _applicationConfigHandler.SaveConfiguration();
 
             // Prepare message for parent window
             var settingMsg = new SettingMessage()
@@ -130,7 +159,7 @@ namespace WpfClient.ViewModels
 
             // Send message 
             // Note: For multi message, use context in order to have a unique identifier
-            Messenger.Default.Send<SettingMessage>(settingMsg, "Flyout");
+            Messenger.Default.Send<SettingMessage>(settingMsg, Flyout_msg_key);
         }
 
         private bool CanSaveSettings(object obj)
@@ -138,7 +167,7 @@ namespace WpfClient.ViewModels
             return true;
         }
 
-        // Colors and themes ...................................................
+        // Colors and themes 
         public void LoadAccentColorsAndThemes()
         {
             // Get a list of available Accent Colors
