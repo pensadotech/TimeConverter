@@ -3,22 +3,19 @@ using System.Xml.Serialization;
 
 namespace TimeConverter.Domain.Dto
 {
-    [Serializable]
-    public class ConfigItem
+    public class UserConfigItem
     {
         // Properties ..............................
-        [XmlElement("ConfigKey")]
         public string ConfigKey { get; set; }
-        [XmlElement("ConfigValue")]
         public string ConfigValue { get; set; }
 
         // Constructors ...........................
-        public ConfigItem()
+        public UserConfigItem()
         {
             // nothing 
         }
 
-        public ConfigItem(string configKey, string configValue)
+        public UserConfigItem(string configKey, string configValue)
         {
             this.ConfigKey = configKey;
             this.ConfigValue = configValue;

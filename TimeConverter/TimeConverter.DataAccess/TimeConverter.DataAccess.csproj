@@ -41,10 +41,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationRepository.cs" />
+    <Compile Include="Entities\SystemConfig.cs" />
+    <Compile Include="Entities\SystemConfigItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
+    <ProjectReference Include="..\Ptech.Core.SerializationLibrary\Ptech.Core.SerializationLibrary.csproj">
+      <Project>{b0271565-a61c-4b01-89a7-60300d62d43b}</Project>
+      <Name>Ptech.Core.SerializationLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeConverter.Domain\TimeConverter.Domain.csproj">
+      <Project>{cc98eab8-0161-4b93-b1e9-b67f423576e0}</Project>
+      <Name>TimeConverter.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -41,9 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Dto\ApplicationConfig.cs" />
-    <Compile Include="Dto\ConfigItem.cs" />
-    <Compile Include="Interfaces\IConfigurationRepository.cs" />
+    <Compile Include="Dto\UserConfiguration.cs" />
+    <Compile Include="Dto\UserConfigItem.cs" />
+    <Compile Include="Interfaces\IUserConfigRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

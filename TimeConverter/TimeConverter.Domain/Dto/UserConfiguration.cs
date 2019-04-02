@@ -5,24 +5,21 @@ using System.Xml.Serialization;
 
 namespace TimeConverter.Domain.Dto
 {
-    [Serializable, XmlRoot("ApplicationConfig")]
-    public class ApplicationConfig
+    public class UserConfiguration
     {
         // Properties ................................................
         public string ConfigFilename { get; set; }
-        [XmlArray("ConfigItems")]
-        public List<ConfigItem> ConfigItems { get; set; }
+        public List<UserConfigItem> ConfigItems { get; set; }
 
         // Constructors ..............................................
-        public ApplicationConfig()
+        public UserConfiguration()
         {
-
         }
 
-        public ApplicationConfig(string configFilename) : this()
+        public UserConfiguration(string configFilename) : this()
         {
             this.ConfigFilename = configFilename;
-            ConfigItems = new List<ConfigItem>();
+            ConfigItems = new List<UserConfigItem>();
         }
 
         // Methods ....................................................
@@ -31,7 +28,7 @@ namespace TimeConverter.Domain.Dto
         {
             string itemValue = String.Empty;
 
-            ConfigItem cfgItem = ConfigItems.FirstOrDefault(s => s.ConfigKey == configKey);
+            UserConfigItem cfgItem = ConfigItems.FirstOrDefault(s => s.ConfigKey == configKey);
             if (cfgItem != null)
             {
                 itemValue = cfgItem.ConfigValue;
@@ -43,7 +40,7 @@ namespace TimeConverter.Domain.Dto
 
         public void SetConfigItem(string configKey, string configValue)
         {
-            ConfigItem cfgItem = new ConfigItem()
+            UserConfigItem cfgItem = new UserConfigItem()
             {
                 ConfigKey = configKey,
                 ConfigValue = configValue
@@ -53,15 +50,15 @@ namespace TimeConverter.Domain.Dto
             SetConfigItem(cfgItem);
         }
 
-        private void SetConfigItem(ConfigItem configItem)
+        private void SetConfigItem(UserConfigItem configItem)
         {
             // determine if the config item already exists
-            ConfigItem cfgItem = ConfigItems.FirstOrDefault(s => s.ConfigKey == configItem.ConfigKey);
+            UserConfigItem cfgItem = ConfigItems.FirstOrDefault(s => s.ConfigKey == configItem.ConfigKey);
 
             // Create or update 
             if (cfgItem == null)
             {
-                cfgItem = new ConfigItem()
+                cfgItem = new UserConfigItem()
                 {
                     ConfigKey = configItem.ConfigKey,
                     ConfigValue = configItem.ConfigValue
