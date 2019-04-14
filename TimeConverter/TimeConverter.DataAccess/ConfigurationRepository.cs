@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Ptech.Core.SerializationLibrary;
-using Domain = TimeConverter.Domain;
+using TimeConverter.Domain.Interfaces.Repositories;
 
 namespace TimeConverter.DataAccess
 {
-    public class ConfigurationRepository : Domain.Interfaces.IUserConfigRepository
+    public class ConfigurationRepository : IUserConfigRepository
     {
+        // TODO: Load to local DTO and convert to Doman
+
         /// <summary>
         /// Save to file the system configuraiton
         /// </summary>

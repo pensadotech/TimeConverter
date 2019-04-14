@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Windows;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro;
+using TimeConverter.Domain.Interfaces.Services;
 using WpfClient.ColorsAndTheme;
 using WpfClient.Extensions;
 using WpfClient.Messages;
@@ -37,7 +35,7 @@ namespace WpfClient.ViewModels
         private const string Theme_Config_Key = "Theme";
         private const string Flyout_msg_key = "Flyout";
         // Config service
-        private TimeConverter.Service.IAppConfigHandler _applicationConfigHandler;
+        private IUserConfigService _userConfigService;
         // Parameters
         private ObservableCollection<AccentColorData> _accentColorDataList;
         private ObservableCollection<AppThemeData> _appThemeDataList;
@@ -103,10 +101,10 @@ namespace WpfClient.ViewModels
         public ICommand SaveSettingsCommad { get; set; }
 
         // Constructors .......................................
-        public SettingsViewModel(TimeConverter.Service.IAppConfigHandler applicationConfig)
+        public SettingsViewModel(IUserConfigService userConfigService)
         {
             // configuration service to use
-            _applicationConfigHandler = applicationConfig;
+            _userConfigService = userConfigService;
             // Prepare commands 
             LoadCommands();
             // Load collors and themes
@@ -121,8 +119,8 @@ namespace WpfClient.ViewModels
         private void LoadColrAndThemeFromSettings()
         {   
             // get from config object the settings fro Coloer and Theme
-            string colorSetting = _applicationConfigHandler.GetConfigItemValue(Color_Config_Key);
-            string themeSetting = _applicationConfigHandler.GetConfigItemValue(Theme_Config_Key);
+            string colorSetting = _userConfigService.GetConfigItemValue(Color_Config_Key);
+            string themeSetting = _userConfigService.GetConfigItemValue(Theme_Config_Key);
 
             // If found, convert to accent color and theme data
             if (colorSetting != String.Empty && themeSetting != String.Empty)
@@ -147,9 +145,9 @@ namespace WpfClient.ViewModels
             ApplyAppTheme(_SelectedAppThemeData);
 
             // SAVE: set color and theme in config file, and save the file
-            _applicationConfigHandler.SetConfigItem(Color_Config_Key, _selectedAccentColorData.Name);
-            _applicationConfigHandler.SetConfigItem(Theme_Config_Key, _SelectedAppThemeData.Name);
-            _applicationConfigHandler.SaveConfiguration();
+            _userConfigService.SetConfigItem(Color_Config_Key, _selectedAccentColorData.Name);
+            _userConfigService.SetConfigItem(Theme_Config_Key, _SelectedAppThemeData.Name);
+            _userConfigService.SaveUserConfiguration();
 
             // Prepare message for parent window
             var settingMsg = new SettingMessage()

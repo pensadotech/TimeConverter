@@ -14,6 +14,11 @@ namespace Ptech.Core.SerializationLibrary
 
     public class BinarySerializationFunctions
     {
+        /// <summary>
+        /// Save an object into a file using binary serlializaiton
+        /// </summary>
+        /// <param name="iFilename"></param>
+        /// <param name="objGraph"></param>
         public static void SaveBinObject(string iFilename, object objGraph)
         {
             // Usie Binary format for file
@@ -27,6 +32,11 @@ namespace Ptech.Core.SerializationLibrary
             }
         }
 
+        /// <summary>
+        /// Load an object from  a file using binary serialization
+        /// </summary>
+        /// <param name="iFilename"></param>
+        /// <returns>object</returns>
         public static object LoadBinObject(string iFilename)
         {
             object objGraph = null;

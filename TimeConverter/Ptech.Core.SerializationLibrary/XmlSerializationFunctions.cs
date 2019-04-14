@@ -15,6 +15,13 @@ namespace Ptech.Core.SerializationLibrary
     public class XmlSerializationFunctions
     {
         // XML serializer (generics) ---------------------------------------
+
+        /// <summary>
+        /// Save an object into a file using XML serialization
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="iFilename"></param>
+        /// <param name="objGraph"></param>
         public static void SaveXmlGenericObject<T>(string iFilename, T objGraph)
         {
             using (Stream fStream = new FileStream(iFilename,
@@ -27,6 +34,12 @@ namespace Ptech.Core.SerializationLibrary
             }
         }
 
+        /// <summary>
+        /// Loads an object from a file using XML serialization
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="iFilename"></param>
+        /// <returns>object</returns>
         public static object LoadXmlGenericObject<T>(string iFilename)
         {
             object objGraph = new object();
@@ -45,6 +58,13 @@ namespace Ptech.Core.SerializationLibrary
 
 
         // XML serializer (traditional)---------------------------------------------
+
+        /// <summary>
+        /// Save an object into a file using XML serialization
+        /// </summary>
+        /// <param name="iFilename"></param>
+        /// <param name="objGraph"></param>
+        /// <param name="objChildTypes"></param>
         public static void SaveXmlObject(string iFilename, object objGraph, Type[] objChildTypes)
         {
             // Get type of object 
@@ -60,6 +80,13 @@ namespace Ptech.Core.SerializationLibrary
             }
         }
 
+        /// <summary>
+        /// Loads an object from a file using XML serialization
+        /// </summary>
+        /// <param name="iFilename"></param>
+        /// <param name="objGraph"></param>
+        /// <param name="objChildTypes"></param>
+        /// <returns>object</returns>
         public static object LoadXmlObject(string iFilename, object objGraph, Type[] objChildTypes)
         {
             // Get type of object 
@@ -77,7 +104,6 @@ namespace Ptech.Core.SerializationLibrary
             return objGraph;
         }
 
-        
 
     }
 }

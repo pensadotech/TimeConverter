@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
-using TimeConverter.Service;
+using TimeConverter.Domain.Interfaces.Services;
 using WpfClient.Extensions;
 using WpfClient.Messages;
 using WpfClient.Utilities;
@@ -20,7 +20,7 @@ namespace WpfClient.ViewModels
     {
         // Private members .............................................
         // Services
-        private ITimeConverter _timeConverter;  
+        private ITimeConverterService _timeConverterService;  
         // parent window property
         private MetroWindow _currentWindow;     
         // Properties
@@ -150,10 +150,10 @@ namespace WpfClient.ViewModels
         public ICommand SettingsCommand { get; set; }
 
         // Constructors .......................................
-        public MainWindowViewModel(ITimeConverter timeConverter)
+        public MainWindowViewModel(ITimeConverterService timeConverterServicer)
         {
             // inject timeConverter library
-           _timeConverter = timeConverter;
+            _timeConverterService = timeConverterServicer;
 
             // Prepare commands 
             LoadCommands();
@@ -176,7 +176,7 @@ namespace WpfClient.ViewModels
         {
             // Iitialize values
             DateTime curentTime = DateTime.Now;
-            SecondsToConvert = _timeConverter.ConvertString24HrTimeToSeconds(curentTime.ToString("HH:mm:ss"));
+            SecondsToConvert = _timeConverterService.ConvertString24HrTimeToSeconds(curentTime.ToString("HH:mm:ss"));
             ConvertedHours = "";
             HoursToConvert = curentTime;
             ConvertedSeconds = "";
@@ -209,13 +209,13 @@ namespace WpfClient.ViewModels
             if (_convertSecondsToHoursAction)
             {
                 // Convert entered seconds into DateTime and retunr time into screen
-                DateTime resultDateTime = _timeConverter.ConvertSecondsToCurrentDateTime(_secondsToConvert);
+                DateTime resultDateTime = _timeConverterService.ConvertSecondsToCurrentDateTime(_secondsToConvert);
                 ConvertedHours = resultDateTime.ToString("HH:mm:ss");
 
             } else if (_convertHoursToSecondsAction)
             {
                 // Convert time in 24 hrs into seconds and display result in screen 
-                double resultSecs = _timeConverter.ConvertString24HrTimeToSeconds(_hoursToConvert.ToString("HH:mm:ss"));
+                double resultSecs = _timeConverterService.ConvertString24HrTimeToSeconds(_hoursToConvert.ToString("HH:mm:ss"));
                 ConvertedSeconds = $"{resultSecs:#,#0.00}"; // to String
             }
         }

@@ -8,6 +8,12 @@ namespace Ptech.Core.DateAndTimeLibrary
 {
     public class DateTimeFunctions
     {
+        /// <summary>
+        /// Convert seconds since midnight into hours
+        /// Example: 44614.235
+        /// </summary>
+        /// <param name="secSinceMidnight"></param>
+        /// <returns>DateTime</returns>
         public static DateTime ConvertSecondsToCurrentDateTime(double secSinceMidnight)
         {
             DateTime dt = DateTime.Today;
@@ -15,6 +21,12 @@ namespace Ptech.Core.DateAndTimeLibrary
             return dt.AddSeconds(secSinceMidnight);
         }
 
+        /// <summary>
+        /// Convert a string hours in 24 hrs format into second since midnight
+        /// example: "12:23:34.235"
+        /// </summary>
+        /// <param name="targetTime24"></param>
+        /// <returns>double</returns>
         public static double ConvertString24HrTimeToSeconds(string targetTime24)
         {
             // Example 12:23:34.235 
@@ -29,7 +41,12 @@ namespace Ptech.Core.DateAndTimeLibrary
             return totaSecs;
         }
 
-        public static double ConvertDateTimeToSeconds(DateTime targetDatetime)
+        /// <summary>
+        /// Convert Datetime hours into second since midnight
+        /// </summary>
+        /// <param name="targetDatetime"></param>
+        /// <returns></returns>
+        public static double ConvertDate12HrTimeToSeconds(DateTime targetDatetime)
         {
             int secHrs = 3600 * targetDatetime.Hour;
             int secMin = 60 * targetDatetime.Minute;
@@ -40,12 +57,24 @@ namespace Ptech.Core.DateAndTimeLibrary
             return totaSecs;
         }
 
+        /// <summary>
+        /// Obtain time difference in seconds
+        /// </summary>
+        /// <param name="fromTime"></param>
+        /// <param name="toTime"></param>
+        /// <returns></returns>
         public static double TimeDifferenceInSeconds(double fromTime, double toTime)
         {
             double timeDiff = toTime - fromTime;
             return timeDiff;
         }
 
+        /// <summary>
+        /// Obtain time differences in hours using two string representing hours in 24 hrs fromat
+        /// </summary>
+        /// <param name="fromTime"></param>
+        /// <param name="toTime"></param>
+        /// <returns></returns>
         public static double String24TimeDifference(string fromTime, string toTime)
         {
             // Convert FROM time to seconds (Example 12:23:34.235 )

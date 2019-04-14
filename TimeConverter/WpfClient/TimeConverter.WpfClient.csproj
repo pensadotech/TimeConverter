@@ -150,9 +150,13 @@
     <Resource Include="Images\time.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TimeConverter.Service\TimeConverter.Service.csproj">
-      <Project>{4fa23aff-9902-43aa-84ed-2ac2fd30e2ab}</Project>
-      <Name>TimeConverter.Service</Name>
+    <ProjectReference Include="..\TimeConverter.DataAccess\TimeConverter.DataAccess.csproj">
+      <Project>{a3c2844e-7a1f-4a59-988e-39fc62b3c221}</Project>
+      <Name>TimeConverter.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeConverter.Domain\TimeConverter.Domain.csproj">
+      <Project>{cc98eab8-0161-4b93-b1e9-b67f423576e0}</Project>
+      <Name>TimeConverter.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,6 +19,12 @@ namespace Ptech.Core.SerializationLibrary
 
     public class DataContractSerializationFunctions
     {
+        /// <summary>
+        /// Save an object into a file using Data Contract serialization
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="iFilename"></param>
+        /// <param name="objGraph"></param>
         public static void SaveObjectByContract<T>(string iFilename, T objGraph)
         {
             // serializer object
@@ -33,6 +39,12 @@ namespace Ptech.Core.SerializationLibrary
             }
         }
 
+        /// <summary>
+        /// Loads an object from a file using Data contract serialization
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="iFilename"></param>
+        /// <returns></returns>
         public static object LoadObjectByContract<T>(string iFilename)
         {
             object objGraph = null;

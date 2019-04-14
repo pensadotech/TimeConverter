@@ -16,7 +16,6 @@ namespace Ptech.Core.SerializationLibrary.Test.Dto
 
         //[XmlAttribute("SavedDateTime")]
         [XmlElement("LastSaveateTime")]
-
         [DataMember(Name = "SavedDateTime", IsRequired = true)]
         public String SavedDateTime;
 

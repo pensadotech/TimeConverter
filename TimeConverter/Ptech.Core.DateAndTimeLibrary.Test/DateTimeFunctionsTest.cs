@@ -17,9 +17,10 @@ namespace Ptech.Core.DateAndTimeLibrary.Test
                 double refSeconds = 44614.235;
                 DateTime refDateTime = DateTime.Today.AddSeconds(refSeconds);
 
-                // convert 
+                // convert
                 DateTime resultDateTime = DateTimeFunctions.ConvertSecondsToCurrentDateTime(refSeconds);
 
+                // assert
                 Assert.AreEqual(refDateTime, resultDateTime);
             }
 
@@ -37,16 +38,16 @@ namespace Ptech.Core.DateAndTimeLibrary.Test
             }
 
             [TestMethod]
-            public void ConvertDateTimeToSecondsTest()
+            public void ConvertDate12HrTimeToSecondsTest()
             {
                 double refSeconds = 44614.235;
+                // use current date staring from midnight today andd add seconds 
                 DateTime targetDateTime = DateTime.Today.AddSeconds(refSeconds);
 
                 // Convert
-                double resultSecs = DateTimeFunctions.ConvertDateTimeToSeconds(targetDateTime);
+                double resultSecs = DateTimeFunctions.ConvertDate12HrTimeToSeconds(targetDateTime);
 
                 Assert.AreEqual(refSeconds, resultSecs);
-
             }
         }
     }

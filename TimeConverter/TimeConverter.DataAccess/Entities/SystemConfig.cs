@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Domain = TimeConverter.Domain;
 
 namespace TimeConverter.DataAccess.Entities
 {
@@ -11,7 +12,12 @@ namespace TimeConverter.DataAccess.Entities
     public class SystemConfig
     {
         // Properties ................................................
+        [XmlElement("ConfigName")]
         public string ConfigFilename { get; set; }
+
+        [XmlElement("LastSaveateTime")]
+        public String SavedDateTime;
+
         [XmlArray("ConfigItems")]
         public List<SystemConfigItem> ConfigItems { get; set; }
 
@@ -78,5 +84,42 @@ namespace TimeConverter.DataAccess.Entities
                 cfgItem.ConfigValue = configItem.ConfigValue;
             }
         }
+
+        /// <summary>
+        /// Convert configuration object to domain config object
+        /// </summary>
+        /// <returns></returns>
+        public Domain.Dto.UserConfiguration ToDomainUserConfig()
+        {
+            var userConfig = new Domain.Dto.UserConfiguration
+            {
+                ConfigFilename = this.ConfigFilename
+            };
+
+            // Convert each local system config into domain config items
+            foreach (var item in this.ConfigItems)
+            {
+                userConfig.SetConfigItem(item.ConfigKey, item.ConfigValue);
+            }
+
+            return userConfig;
+        }
+
+        /// <summary>
+        /// Convert Domain user configuration object into local system config object
+        /// </summary>
+        /// <param name="userConfig"></param>
+        public void ToDataAccessObject(Domain.Dto.UserConfiguration userConfig)
+        {
+            // Set configuration file name
+            this.ConfigFilename = userConfig.ConfigFilename;
+
+            // Convert each domain user config item into local config item
+            foreach (var item in userConfig.ConfigItems)
+            {
+                SetConfigItem(item.ConfigKey, item.ConfigValue);
+            }
+        }
+
     }
 }
