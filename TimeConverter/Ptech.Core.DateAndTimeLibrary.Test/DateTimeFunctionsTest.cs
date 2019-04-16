@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Ptech.Core.DateAndTimeLibrary;
 
 namespace Ptech.Core.DateAndTimeLibrary.Test
 {
@@ -8,45 +7,60 @@ namespace Ptech.Core.DateAndTimeLibrary.Test
     public class DateTimeFunctionsTest
     {
         [TestClass]
-        public class UnitTest1
+        public class DateTimeFunctionTest
         {
+            [TestInitialize]
+            public void Initialize()
+            {
+                // nothing
+            }
+
+            [TestCleanup]
+            public void CleanUp()
+            {
+                // nothing
+            }
+
             [TestMethod]
             public void ConvertSecondsToCurrentDateTimeTest()
             {
-                // reference objects
+                // Arrange
                 double refSeconds = 44614.235;
                 DateTime refDateTime = DateTime.Today.AddSeconds(refSeconds);
 
-                // convert
+                // Act
                 DateTime resultDateTime = DateTimeFunctions.ConvertSecondsToCurrentDateTime(refSeconds);
 
-                // assert
+                // Assert
                 Assert.AreEqual(refDateTime, resultDateTime);
             }
 
             [TestMethod]
             public void ConvertString24HrTimeToSecondsTest()
             {
-                // reference objects
+                // Arrange
                 double refSeconds = 44614.235;
                 string target24Time = "12:23:34.235";
 
-                // convert
+                // Act
                 double resultSecs = DateTimeFunctions.ConvertString24HrTimeToSeconds(target24Time);
 
+                // Assert
                 Assert.AreEqual(refSeconds, resultSecs);
             }
 
             [TestMethod]
             public void ConvertDate12HrTimeToSecondsTest()
             {
+                // Arrange
                 double refSeconds = 44614.235;
                 // use current date staring from midnight today andd add seconds 
                 DateTime targetDateTime = DateTime.Today.AddSeconds(refSeconds);
 
-                // Convert
+                // Act
                 double resultSecs = DateTimeFunctions.ConvertDate12HrTimeToSeconds(targetDateTime);
 
+                // Assert
                 Assert.AreEqual(refSeconds, resultSecs);
             }
         }

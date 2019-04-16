@@ -10,8 +10,6 @@ namespace WpfClient.ViewModels
     {
         // Private members..................................
         
-         // TODO make sure that dependencies has proper parametesr
-
         // INJECTION: Root composition 
         // Repositories
         private static readonly IUserConfigRepository _userConfigRepository = new ConfigurationRepository();

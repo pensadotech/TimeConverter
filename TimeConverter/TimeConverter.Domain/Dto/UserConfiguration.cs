@@ -10,16 +10,17 @@ namespace TimeConverter.Domain.Dto
         // Properties ................................................
         public string ConfigFilename { get; set; }
         public List<UserConfigItem> ConfigItems { get; set; }
+        public DateTime SavedDateTime { get; set; }
 
         // Constructors ..............................................
         public UserConfiguration()
         {
+            ConfigItems = new List<UserConfigItem>();
         }
 
         public UserConfiguration(string configFilename) : this()
         {
             this.ConfigFilename = configFilename;
-            ConfigItems = new List<UserConfigItem>();
         }
 
         // Methods ....................................................

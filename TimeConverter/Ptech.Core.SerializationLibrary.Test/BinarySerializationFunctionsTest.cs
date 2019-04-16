@@ -18,37 +18,42 @@ namespace Ptech.Core.SerializationLibrary.Test
             // Set example userg configuration
             usrConfig = new UserConfiguration();
             usrConfig.ConfigName = "TestConfig01";
-            usrConfig.SavedDateTime = DateTime.Now.ToShortDateString();
+            usrConfig.SavedDateTime = DateTime.Now;
             usrConfig.AddConfigVar("GRP1", "SGRP1", "Var1", "abc123", "abc1234");
             usrConfig.AddConfigVar("GRP1", "SGRP1", "Var2", "xwz123", "xwz1234");
             usrConfig.AddConfigVar("GRP1", "SGRP1", "Var3", "rty123", "rty1234");
+            }
 
+        [TestCleanup]
+        public void CleanUp()
+        {
+            // nothing
         }
 
         [TestMethod]
         public void SaveAndLoadBinObjectsTest()
         {
-            // Output file
+            // Arrange
             string cfgFilename = @"UsrConfig.bin";
 
-            // Write file 
+            // Act : Writeh file
             BinarySerializationFunctions.SaveBinObject(cfgFilename, usrConfig);
 
-            // Does file exists?
+            // Assert
             bool doesfilExit = File.Exists(cfgFilename);
-
             // Validate that file exists
             Assert.IsTrue(doesfilExit);
 
-            // Read File
+            // Act : Read file
             var usrConfig2 = (UserConfiguration)BinarySerializationFunctions.LoadBinObject(cfgFilename);
 
+            // Assert
             // Validate that returning oopbjet is not null
             Assert.IsNotNull(usrConfig2);
 
             // Validate that the configuration was loaded properly
             Assert.AreEqual("TestConfig01", usrConfig2.ConfigName);
-            Assert.AreEqual(3, usrConfig2.userConfigVariables.Count);
+            Assert.AreEqual(3, usrConfig2.UserConfigVariables.Count);
         }
     }
 }

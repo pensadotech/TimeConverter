@@ -12,33 +12,37 @@ namespace Ptech.Core.SerializationLibrary.Test.Dto
     {
         [XmlElement("ConfigName")]
         [DataMember(Name = "ConfigName", IsRequired = true)]
-        public String ConfigName;
+        public String ConfigName { get; set; }
 
         //[XmlAttribute("SavedDateTime")]
-        [XmlElement("LastSaveateTime")]
-        [DataMember(Name = "SavedDateTime", IsRequired = true)]
-        public String SavedDateTime;
+        [XmlElement("LastSaveDateTime")]
+        [DataMember(Name = "LastSaveDateTime", IsRequired = true)]
+        public DateTime SavedDateTime { get; set; }
 
         [XmlArrayAttribute("UserVariables")]
         [DataMember(Name = "userConfigVariables", IsRequired = false)]
-        public List<UserConfigVariable> userConfigVariables;
+        public List<UserConfigVariable> UserConfigVariables { get; set; }
 
 
         public UserConfiguration()
         {
-            userConfigVariables = new List<UserConfigVariable>();
+            UserConfigVariables = new List<UserConfigVariable>();
         }
 
         public void AddConfigVar(string grpKey, string SubgrpKey, string keyName, string keyVal1, string keyVal2)
-        {
-            UserConfigVariable cfgVar = new UserConfigVariable();
-            cfgVar.GroupKey = grpKey;
-            cfgVar.SubgroupKey = SubgrpKey;
-            cfgVar.KeyName = keyName;
-            cfgVar.KeyValue1 = keyVal1;
-            cfgVar.KeyValue2 = keyVal2;
-
-            userConfigVariables.Add(cfgVar);
+        {   
+            // Create a new configuration item
+            UserConfigVariable cfgVar = new UserConfigVariable()
+            {
+                GroupKey = grpKey,
+                SubgroupKey = SubgrpKey,
+                KeyName = keyName,
+                KeyValue1 = keyVal1,
+                KeyValue2 = keyVal2
+            };
+            
+            // Add to teh list of configurat
+            UserConfigVariables.Add(cfgVar);
 
         }
 

@@ -1,35 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using Domain = TimeConverter.Domain;
 
 namespace TimeConverter.DataAccess.Entities
 {
     [Serializable, XmlRoot("SystemConfig")]
+    [DataContract(Name = "UserConfiguration", Namespace = "ptech/2019/UserConfiguration")]
     public class SystemConfig
     {
         // Properties ................................................
         [XmlElement("ConfigName")]
+        [DataMember(Name = "ConfigName", IsRequired = true)]
         public string ConfigFilename { get; set; }
 
-        [XmlElement("LastSaveateTime")]
-        public String SavedDateTime;
+        [XmlElement("LastSaveDateTime")]
+        [DataMember(Name = "LastSaveDateTime", IsRequired = true)]
+        public DateTime SavedDateTime { get; set; }
 
-        [XmlArray("ConfigItems")]
+        [XmlArrayAttribute("UserConfigItems")]
+        [DataMember(Name = "UserConfigItems", IsRequired = false)]
         public List<SystemConfigItem> ConfigItems { get; set; }
 
         // Constructors ..............................................
         public SystemConfig()
         {
+            ConfigItems = new List<SystemConfigItem>();
         }
 
         public SystemConfig(string configFilename) : this()
         {
             this.ConfigFilename = configFilename;
-            ConfigItems = new List<SystemConfigItem>();
         }
 
         // Methods ....................................................
@@ -89,11 +91,12 @@ namespace TimeConverter.DataAccess.Entities
         /// Convert configuration object to domain config object
         /// </summary>
         /// <returns></returns>
-        public Domain.Dto.UserConfiguration ToDomainUserConfig()
+        public Domain.Dto.UserConfiguration ToDomainObject()
         {
             var userConfig = new Domain.Dto.UserConfiguration
             {
-                ConfigFilename = this.ConfigFilename
+                ConfigFilename = this.ConfigFilename,
+                SavedDateTime = this.SavedDateTime
             };
 
             // Convert each local system config into domain config items
@@ -113,6 +116,7 @@ namespace TimeConverter.DataAccess.Entities
         {
             // Set configuration file name
             this.ConfigFilename = userConfig.ConfigFilename;
+            this.SavedDateTime = DateTime.Now;
 
             // Convert each domain user config item into local config item
             foreach (var item in userConfig.ConfigItems)

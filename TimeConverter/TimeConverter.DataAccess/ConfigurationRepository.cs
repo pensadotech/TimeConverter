@@ -1,25 +1,28 @@
 ﻿using System.IO;
-using Ptech.Core.SerializationLibrary;
-using TimeConverter.Domain.Interfaces.Repositories;
+using TimeConverter.DataAccess.Entities;
+using TimeConverter.Domain.Dto;
+using ConfigLib = Ptech.Core.SerializationLibrary;
+using Domain = TimeConverter.Domain;
 
 namespace TimeConverter.DataAccess
 {
-    public class ConfigurationRepository : IUserConfigRepository
+    public class ConfigurationRepository : Domain.Interfaces.Repositories.IUserConfigRepository
     {
-        // TODO: Load to local DTO and convert to Doman
-
         /// <summary>
         /// Save to file the system configuraiton
         /// </summary>
         /// <param name="configFilename"></param>
         /// <param name="userConfigs"></param>
-        /// <returns></returns>
+        /// <returns>bool</returns>
         public bool SaveUserConfiguration(string configFilename, Domain.Dto.UserConfiguration userConfigs)
-        {
+        {   
+            // Translate domain object to data-access object
+            SystemConfig sysConfig = TranslateVariablesToDataLayer(userConfigs);
+            
             // Save into file using XML serializaiton
-            XmlSerializationFunctions.SaveXmlGenericObject<Domain.Dto.UserConfiguration>(configFilename, userConfigs);
+            ConfigLib.XmlSerializationFunctions.SaveXmlGenericObject<SystemConfig>(configFilename, sysConfig);
 
-            // Does file exists?
+            // Verify that file was created
             bool doesfilExit = File.Exists(configFilename);
 
             return doesfilExit;
@@ -29,13 +32,58 @@ namespace TimeConverter.DataAccess
         /// Load system configuration from a file
         /// </summary>
         /// <param name="configFilename"></param>
-        /// <returns></returns>
+        /// <returns>Domain.Dto.UserConfiguration</returns>
         public Domain.Dto.UserConfiguration LoadUserConfiguration(string configFilename)
         {
-            // Read configurations from the file and cast object to corresponding type
-            var usrConfig = (Domain.Dto.UserConfiguration)XmlSerializationFunctions.LoadXmlGenericObject<Domain.Dto.UserConfiguration>(configFilename);
+            bool doesfilExit = File.Exists(configFilename);
+            Domain.Dto.UserConfiguration userConfig = null;
 
-            return usrConfig;
+            if (doesfilExit)
+            {
+                // Read configurations from the file and cast object to corresponding type
+                var sysConfig = (SystemConfig)ConfigLib.XmlSerializationFunctions.LoadXmlGenericObject<SystemConfig>(configFilename);
+
+                // Translate Data-Access objects to a Domain object 
+                userConfig = TranslateVariablesToDomian(sysConfig);
+            }
+
+            return userConfig;
         }
+
+
+        // DOMAIN TO DATA-ACCESS CONVERSTIONS ................
+
+        /// <summary>
+        /// Trasnlate Domain objects into Data-Access objects
+        /// </summary>
+        /// <param name="userConfig"></param>
+        /// <returns>SystemConfig</returns>
+        private SystemConfig TranslateVariablesToDataLayer(Domain.Dto.UserConfiguration userConfig)
+        {
+            SystemConfig sysConfig = null;
+
+            if (userConfig != null)
+            {
+                sysConfig = new SystemConfig();
+                // Translate Domian object into Data-Access object
+                sysConfig.ToDataAccessObject(userConfig);
+            }
+            
+            return sysConfig;
+        }
+
+        /// <summary>
+        /// Trasnlate Data-Access object to Domain
+        /// </summary>
+        /// <param name="sysConfig"></param>
+        /// <returns>Domain.Dto.UserConfiguration</returns>
+        private Domain.Dto.UserConfiguration TranslateVariablesToDomian(SystemConfig sysConfig)
+        {
+            // Translate Data-Acees object into a Domian object
+            Domain.Dto.UserConfiguration userConfig = sysConfig.ToDomainObject();
+
+            return userConfig;
+        }
+
     }
 }
