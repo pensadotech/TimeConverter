@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test_TimeConverter", "Test_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeConverter.DataAccess.Test", "TimeConverter.DataAccess.Test\TimeConverter.DataAccess.Test.csproj", "{A7A3C37B-42B4-4F75-A70F-992807B8BCFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeConverter.Domain.Test", "TimeConverter.Domain.Test\TimeConverter.Domain.Test.csproj", "{86EF34CC-D6D3-4DA8-80CA-E817F33A323F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{A7A3C37B-42B4-4F75-A70F-992807B8BCFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7A3C37B-42B4-4F75-A70F-992807B8BCFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7A3C37B-42B4-4F75-A70F-992807B8BCFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86EF34CC-D6D3-4DA8-80CA-E817F33A323F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86EF34CC-D6D3-4DA8-80CA-E817F33A323F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86EF34CC-D6D3-4DA8-80CA-E817F33A323F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86EF34CC-D6D3-4DA8-80CA-E817F33A323F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{BDAC4813-6674-4DE7-9A56-ED556FEA3E93} = {3F009C5C-9676-4744-91A9-0B9B07576730}
 		{DF27C134-31CF-4A52-B720-BD53452FD3B0} = {3F009C5C-9676-4744-91A9-0B9B07576730}
 		{A7A3C37B-42B4-4F75-A70F-992807B8BCFA} = {A22A031A-5CB8-4A97-94EA-7546C4A5D042}
+		{86EF34CC-D6D3-4DA8-80CA-E817F33A323F} = {A22A031A-5CB8-4A97-94EA-7546C4A5D042}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBA8D69B-65A1-414E-B27D-F9A631CC3A40}
