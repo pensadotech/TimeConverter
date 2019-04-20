@@ -10,6 +10,7 @@ namespace TimeConverter.DataAccess.Test
     /// This will test will exercise the capability to convert a configuraiton object
     /// int an XML file using a ConfigurationRepository that implements 
     /// the Domain IUserConfigRepository. This repository has only to funtions: Load and Save
+    /// The test is for making sure thet file can be stored and retreived to and from the drive
     /// </summary>
     [TestClass]
     public class UserConfigRepositoryTest

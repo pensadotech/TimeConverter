@@ -5,16 +5,21 @@ using TimeConverter.Domain.Interfaces.Repositories;
 
 namespace TimeConverter.Domain.Test
 {
+    /// <summary>
+    /// Domain unit testing
+    /// This program test the  functionality for time conversion using the 
+    /// provide internal lirbary 
+    /// </summary>
     [TestClass]
     public class TimeConvertionFunctionsTest
     {
-        private ITimeConverterRepository _timeConvrtRepo; 
+        private TimeConvertionFunctions _timeConvrtFunct; 
 
         [TestInitialize]
         public void Initialize()
         {
             // Create a Time convertion repo
-            _timeConvrtRepo  = new TimeConvertionFunctions();
+            _timeConvrtFunct = new TimeConvertionFunctions();
         }
 
         [TestCleanup]
@@ -32,7 +37,7 @@ namespace TimeConverter.Domain.Test
             DateTime targetDateTime = DateTime.Today.AddSeconds(refSeconds);
 
             // Act
-            double resultSecs = _timeConvrtRepo.ConvertDate12HrTimeToSeconds(targetDateTime);
+            double resultSecs = _timeConvrtFunct.ConvertDate12HrTimeToSeconds(targetDateTime);
 
             // Assert
             Assert.AreEqual(refSeconds, resultSecs);
@@ -46,7 +51,7 @@ namespace TimeConverter.Domain.Test
             DateTime refDateTime = DateTime.Today.AddSeconds(refSeconds);
 
             // Act
-            DateTime resultDateTime = _timeConvrtRepo.ConvertSecondsToCurrentDateTime(refSeconds);
+            DateTime resultDateTime = _timeConvrtFunct.ConvertSecondsToCurrentDateTime(refSeconds);
 
             // Assert 
             Assert.AreEqual(refDateTime, resultDateTime);
@@ -61,7 +66,7 @@ namespace TimeConverter.Domain.Test
             string target24Time = "12:23:34.235";
 
             // Act
-            double resultSecs = _timeConvrtRepo.ConvertString24HrTimeToSeconds(target24Time);
+            double resultSecs = _timeConvrtFunct.ConvertString24HrTimeToSeconds(target24Time);
 
             // Assert
             Assert.AreEqual(refSeconds, resultSecs);
