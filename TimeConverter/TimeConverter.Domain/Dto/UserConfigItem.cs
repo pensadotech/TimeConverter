@@ -3,6 +3,10 @@ using System.Xml.Serialization;
 
 namespace TimeConverter.Domain.Dto
 {
+    /// <summary>
+    /// DTO tha represent individual configuraiton items
+    /// part of the overall configuraiton DTO
+    /// </summary>
     public class UserConfigItem
     {
         // Properties ..............................

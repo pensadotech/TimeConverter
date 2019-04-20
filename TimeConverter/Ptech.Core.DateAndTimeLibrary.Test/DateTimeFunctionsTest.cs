@@ -22,14 +22,14 @@ namespace Ptech.Core.DateAndTimeLibrary.Test
             }
 
             [TestMethod]
-            public void ConvertSecondsToCurrentDateTimeTest()
+            public void ConvertSecondsToDateTimeObjTest()
             {
                 // Arrange
                 double refSeconds = 44614.235;
                 DateTime refDateTime = DateTime.Today.AddSeconds(refSeconds);
 
                 // Act
-                DateTime resultDateTime = DateTimeFunctions.ConvertSecondsToCurrentDateTime(refSeconds);
+                DateTime resultDateTime = DateTimeFunctions.ConvertSecondsToDateTimeObj(refSeconds);
 
                 // Assert
                 Assert.AreEqual(refDateTime, resultDateTime);
@@ -50,7 +50,7 @@ namespace Ptech.Core.DateAndTimeLibrary.Test
             }
 
             [TestMethod]
-            public void ConvertDate12HrTimeToSecondsTest()
+            public void ConvertDateTimeObjToSecondsTest()
             {
                 // Arrange
                 double refSeconds = 44614.235;
@@ -58,7 +58,7 @@ namespace Ptech.Core.DateAndTimeLibrary.Test
                 DateTime targetDateTime = DateTime.Today.AddSeconds(refSeconds);
 
                 // Act
-                double resultSecs = DateTimeFunctions.ConvertDate12HrTimeToSeconds(targetDateTime);
+                double resultSecs = DateTimeFunctions.ConvertDateTimeObjToSeconds(targetDateTime);
 
                 // Assert
                 Assert.AreEqual(refSeconds, resultSecs);

@@ -15,7 +15,7 @@ namespace Ptech.Core.SerializationLibrary.Test
         [TestInitialize]
         public void InitializeTest()
         {
-            // Set example userg configuration
+            // Set example user configuration using local DTOs
             usrConfig = new UserConfiguration();
             usrConfig.ConfigName = @"UsrConfig.Contract.xml";
             usrConfig.SavedDateTime = DateTime.Now;

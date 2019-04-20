@@ -14,7 +14,7 @@ namespace Ptech.Core.SerializationLibrary
 
     public class XmlSerializationFunctions
     {
-        // XML serializer (generics) ---------------------------------------
+        // XML serializer (generics) ----------------------------------------------------
 
         /// <summary>
         /// Save an object into a file using XML serialization
@@ -57,7 +57,7 @@ namespace Ptech.Core.SerializationLibrary
         }
 
 
-        // XML serializer (traditional)---------------------------------------------
+        // XML serializer (traditional, left here for learning purposes) ------------------------------------
 
         /// <summary>
         /// Save an object into a file using XML serialization

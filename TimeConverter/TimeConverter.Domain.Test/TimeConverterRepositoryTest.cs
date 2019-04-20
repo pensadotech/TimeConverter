@@ -32,9 +32,9 @@ namespace TimeConverter.Domain.Test
             _repositoryMock = new Mock<ITimeConverterRepository>();
 
             // set up the mock repository method calls and the expected results
-            _repositoryMock.Setup(r => r.ConvertDate12HrTimeToSeconds(It.IsAny<DateTime>()))
+            _repositoryMock.Setup(r => r.ConvertDateTimeObjToSeconds(It.IsAny<DateTime>()))
                 .Returns(_refSeconds);
-            _repositoryMock.Setup(r => r.ConvertSecondsToCurrentDateTime(It.IsAny<double>()))
+            _repositoryMock.Setup(r => r.ConvertSecondsToDateTimeObj(It.IsAny<double>()))
                 .Returns(_refDateTime);
             _repositoryMock.Setup(r => r.ConvertString24HrTimeToSeconds(It.IsAny<string>()))
                 .Returns(_refSeconds);
@@ -57,7 +57,7 @@ namespace TimeConverter.Domain.Test
             DateTime targetDateTime = DateTime.Today.AddSeconds(_refSeconds);
 
             // Act
-            double resultSecs = _repositoryMockObject.ConvertDate12HrTimeToSeconds(targetDateTime);
+            double resultSecs = _repositoryMockObject.ConvertDateTimeObjToSeconds(targetDateTime);
 
             // Assert
             Assert.AreEqual(_refSeconds, resultSecs);
@@ -70,7 +70,7 @@ namespace TimeConverter.Domain.Test
             // All set at initialization
 
             // Act
-            DateTime resultDateTime = _repositoryMockObject.ConvertSecondsToCurrentDateTime(_refSeconds);
+            DateTime resultDateTime = _repositoryMockObject.ConvertSecondsToDateTimeObj(_refSeconds);
 
             // Assert 
             Assert.AreEqual(_refDateTime, resultDateTime);

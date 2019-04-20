@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Domain = TimeConverter.Domain;
 
 namespace TimeConverter.DataAccess.Entities
 {
+    /// <summary>
+    /// Data-Access object that will be used to save or load configuration data to/from the local driver
+    /// This data objects belongs only to teh Data-Access layer but will has funcitonality
+    /// to tarnslate to/from a Domain object to keep logical layers separated. 
+    /// </summary>
     [Serializable]
     public class SystemConfigItem
     {

@@ -6,6 +6,11 @@ using System.Xml.Serialization;
 
 namespace TimeConverter.DataAccess.Entities
 {
+    /// <summary>
+    /// Data-Access object that will be used to save or load configuration data to/from the local driver
+    /// This data objects belongs only to teh Data-Access layer but will has funcitonality
+    /// to tarnslate to/from a Domain object to keep logical layers separated. 
+    /// </summary>
     [Serializable, XmlRoot("SystemConfig")]
     [DataContract(Name = "UserConfiguration", Namespace = "ptech/2019/UserConfiguration")]
     public class SystemConfig

@@ -6,6 +6,12 @@ using Domain = TimeConverter.Domain;
 
 namespace TimeConverter.DataAccess
 {
+    /// <summary>
+    /// This class implements the Domain IUserConfigRepository.
+    /// Any other future version of a repository intended to work with the domain layer   
+    /// must implement thet IUserConfigRepository, to maintan the Dependency 
+    /// injection architecture.
+    /// </summary>
     public class ConfigurationRepository : Domain.Interfaces.Repositories.IUserConfigRepository
     {
         /// <summary>
@@ -16,7 +22,7 @@ namespace TimeConverter.DataAccess
         /// <returns>bool</returns>
         public bool SaveUserConfiguration(string configFilename, Domain.Dto.UserConfiguration userConfigs)
         {   
-            // Translate domain object to data-access object
+            // Domain -> Data-Access: Translate Domain object to Data-Access object
             SystemConfig sysConfig = TranslateVariablesToDataLayer(userConfigs);
             
             // Save into file using XML serializaiton
@@ -43,7 +49,7 @@ namespace TimeConverter.DataAccess
                 // Read configurations from the file and cast object to corresponding type
                 var sysConfig = (SystemConfig)ConfigLib.XmlSerializationFunctions.LoadXmlGenericObject<SystemConfig>(configFilename);
 
-                // Translate Data-Access objects to a Domain object 
+                // Data-Access -> Domain: Translate Data-Access objects to a Domain object 
                 userConfig = TranslateVariablesToDomian(sysConfig);
             }
 

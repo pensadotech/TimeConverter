@@ -10,17 +10,19 @@ namespace TimeConverter.DataAccess.Test
     /// This will test will exercise the capability to convert a configuraiton object
     /// int an XML file using a ConfigurationRepository that implements 
     /// the Domain IUserConfigRepository. This repository has only to funtions: Load and Save
-    /// The test is for making sure thet file can be stored and retreived to and from the drive
+    /// The test is for making sure thet file can be stored and retreived to and from the drive.
     /// </summary>
     [TestClass]
     public class UserConfigRepositoryTest
     {
+        // DTO from the domain layer to represent the configuration
         private Domain.Dto.UserConfiguration _userConfig; 
 
         [TestInitialize]
         public void Initialize()
         {
             // Create a new Domain configuration object for the test 
+            // this object will be saved to the drive
             _userConfig = new Domain.Dto.UserConfiguration
             {
                 ConfigFilename = @"UsrConfig.Repo.xml",
@@ -43,7 +45,7 @@ namespace TimeConverter.DataAccess.Test
         public void SaveUserConfigurationTest()
         {
             // Arrange
-            // Create a new data-access repository, which implements the Domain IUserConfigRepository
+            // Create a new Data-Access repository, which implements the Domain IUserConfigRepository
             Domain.Interfaces.Repositories.IUserConfigRepository userConfigRepo = new ConfigurationRepository();
 
             // Act

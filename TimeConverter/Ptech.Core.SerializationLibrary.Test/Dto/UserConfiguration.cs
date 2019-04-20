@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 
 namespace Ptech.Core.SerializationLibrary.Test.Dto
 {
+    /// <summary>
+    /// Local DTO for testing purposes only
+    /// </summary>
     //[XmlRoot("UserConfiguration", Namespace = "http://www.PTech.com")]
     [Serializable]
     [DataContract(Name = "UserConfiguration", Namespace = "ptech/2019/UserConfiguration")]

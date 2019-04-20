@@ -37,7 +37,7 @@ namespace TimeConverter.Domain.Test
             DateTime targetDateTime = DateTime.Today.AddSeconds(refSeconds);
 
             // Act
-            double resultSecs = _timeConvrtFunct.ConvertDate12HrTimeToSeconds(targetDateTime);
+            double resultSecs = _timeConvrtFunct.ConvertDateTimeObjToSeconds(targetDateTime);
 
             // Assert
             Assert.AreEqual(refSeconds, resultSecs);
@@ -51,7 +51,7 @@ namespace TimeConverter.Domain.Test
             DateTime refDateTime = DateTime.Today.AddSeconds(refSeconds);
 
             // Act
-            DateTime resultDateTime = _timeConvrtFunct.ConvertSecondsToCurrentDateTime(refSeconds);
+            DateTime resultDateTime = _timeConvrtFunct.ConvertSecondsToDateTimeObj(refSeconds);
 
             // Assert 
             Assert.AreEqual(refDateTime, resultDateTime);

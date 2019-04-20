@@ -5,6 +5,13 @@ using System.Xml.Serialization;
 
 namespace TimeConverter.Domain.Dto
 {
+    /// <summary>
+    /// This class represent a domain object to handle user preferences for the
+    /// applicaiton and will be refernced by any frontend or Data-Access layer
+    /// and to keep teh layeres independet, this will refrence these DTOs
+    /// or even translate to their local DTO to facilitate the dependency injection
+    /// architecture. 
+    /// </summary>
     public class UserConfiguration
     {
         // Properties ................................................

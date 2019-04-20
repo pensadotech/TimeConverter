@@ -209,7 +209,7 @@ namespace WpfClient.ViewModels
             if (_convertSecondsToHoursAction)
             {
                 // Convert entered seconds into DateTime and retunr time into screen
-                DateTime resultDateTime = _timeConverterService.ConvertSecondsToCurrentDateTime(_secondsToConvert);
+                DateTime resultDateTime = _timeConverterService.ConvertSecondsToDateTimeObj(_secondsToConvert);
                 ConvertedHours = resultDateTime.ToString("HH:mm:ss");
 
             } else if (_convertHoursToSecondsAction)

@@ -38,9 +38,9 @@ namespace TimeConverter.Domain.Services
         // Implement functionality using the local repository, which obeys 
         // the IUserConfigRepository interface
 
-        public DateTime ConvertSecondsToCurrentDateTime(double secSinceMidnight)
+        public DateTime ConvertSecondsToDateTimeObj(double secSinceMidnight)
         {
-            return _timeConverterRepository.ConvertSecondsToCurrentDateTime(secSinceMidnight);
+            return _timeConverterRepository.ConvertSecondsToDateTimeObj(secSinceMidnight);
         }
 
         public double ConvertString24HrTimeToSeconds(string targetTime24)
@@ -48,9 +48,9 @@ namespace TimeConverter.Domain.Services
             return _timeConverterRepository.ConvertString24HrTimeToSeconds(targetTime24);
         }
 
-        public double ConvertDate12HrTimeToSeconds(DateTime targetDatetime12)
+        public double ConvertDateTimeObjToSeconds(DateTime targetDatetime12)
         {
-            return _timeConverterRepository.ConvertDate12HrTimeToSeconds(targetDatetime12);
+            return _timeConverterRepository.ConvertDateTimeObjToSeconds(targetDatetime12);
         }
 
     }

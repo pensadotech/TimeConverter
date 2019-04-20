@@ -9,7 +9,7 @@ namespace TimeConverter.Domain.Interfaces.Services
         /// </summary>
         /// <param name="secSinceMidnight"></param>
         /// <returns>DateTime</returns>
-        DateTime ConvertSecondsToCurrentDateTime(double secSinceMidnight);
+        DateTime ConvertSecondsToDateTimeObj(double secSinceMidnight);
 
         /// <summary>
         /// Convert a sring representing time in 24hrs format to seconds since midnight using the defined repository
@@ -23,6 +23,6 @@ namespace TimeConverter.Domain.Interfaces.Services
         /// </summary>
         /// <param name="targetDatetime12"></param>
         /// <returns>double</returns>
-        double ConvertDate12HrTimeToSeconds(DateTime targetDatetime12);
+        double ConvertDateTimeObjToSeconds(DateTime targetDatetime12);
     }
 }

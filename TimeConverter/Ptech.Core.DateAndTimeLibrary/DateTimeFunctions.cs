@@ -9,12 +9,13 @@ namespace Ptech.Core.DateAndTimeLibrary
     public class DateTimeFunctions
     {
         /// <summary>
-        /// Convert seconds since midnight into hours
+        /// Convert seconds since midnight into a DateTime object for current date
+        /// staring at midnight plust the provided second since midnight.
         /// Example: 44614.235
         /// </summary>
         /// <param name="secSinceMidnight"></param>
         /// <returns>DateTime</returns>
-        public static DateTime ConvertSecondsToCurrentDateTime(double secSinceMidnight)
+        public static DateTime ConvertSecondsToDateTimeObj(double secSinceMidnight)
         {
             DateTime dt = DateTime.Today;
 
@@ -42,11 +43,11 @@ namespace Ptech.Core.DateAndTimeLibrary
         }
 
         /// <summary>
-        /// Convert Datetime hours into second since midnight
+        /// Convert Datetime object into second since midnight
         /// </summary>
         /// <param name="targetDatetime"></param>
         /// <returns></returns>
-        public static double ConvertDate12HrTimeToSeconds(DateTime targetDatetime)
+        public static double ConvertDateTimeObjToSeconds(DateTime targetDatetime)
         {
             int secHrs = 3600 * targetDatetime.Hour;
             int secMin = 60 * targetDatetime.Minute;
