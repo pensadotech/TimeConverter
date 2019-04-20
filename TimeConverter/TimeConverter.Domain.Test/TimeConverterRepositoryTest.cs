@@ -31,7 +31,7 @@ namespace TimeConverter.Domain.Test
             // Define Mock repository 
             _repositoryMock = new Mock<ITimeConverterRepository>();
 
-            // set up the mock repository method calls and the expexted results
+            // set up the mock repository method calls and the expected results
             _repositoryMock.Setup(r => r.ConvertDate12HrTimeToSeconds(It.IsAny<DateTime>()))
                 .Returns(_refSeconds);
             _repositoryMock.Setup(r => r.ConvertSecondsToCurrentDateTime(It.IsAny<double>()))

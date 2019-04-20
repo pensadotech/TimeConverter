@@ -86,9 +86,11 @@ namespace TimeConverter.Domain.Services
         /// </summary>
         /// <param name="configKey"></param>
         /// <param name="configValue"></param>
-        public void SetConfigItem(string configKey, string configValue)
+        public bool SetConfigItem(string configKey, string configValue)
         {
             userConfiguration.SetConfigItem(configKey, configValue);
+
+            return true;
         }
 
     }

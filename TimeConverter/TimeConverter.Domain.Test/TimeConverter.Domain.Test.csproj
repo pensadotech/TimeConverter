@@ -72,6 +72,8 @@
     <Compile Include="TimeConverterServiceTest.cs" />
     <Compile Include="TimeConverterServiceDiTest.cs" />
     <Compile Include="TimeConverterRepositoryTest.cs" />
+    <Compile Include="UserConfigRepositoryTest.cs" />
+    <Compile Include="UserConfigServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

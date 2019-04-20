@@ -31,7 +31,7 @@ namespace TimeConverter.Domain.Interfaces.Services
         /// </summary>
         /// <param name="configKey"></param>
         /// <param name="configValue"></param>
-        void SetConfigItem(string configKey, string configValue);
+        bool SetConfigItem(string configKey, string configValue);
 
     }
 }
