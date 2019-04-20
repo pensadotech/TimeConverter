@@ -31,7 +31,7 @@ namespace TimeConverter.Domain.Test
 
             // set up the mock repository method calls and the expected results
             _serviceMock.Setup(r => r.LoadUserConfiguration())
-                .Returns(_usrConfiguration);
+                .Returns(true);
             _serviceMock.Setup(r => r.SaveUserConfiguration())
                 .Returns(true);
             _serviceMock.Setup(r => r.GetConfigItemValue(It.IsAny<string>()))
@@ -69,10 +69,10 @@ namespace TimeConverter.Domain.Test
             // All set at initialization
 
             // Act
-            UserConfiguration userConfig = _serviceMockObject.LoadUserConfiguration();
+            bool success = _serviceMockObject.LoadUserConfiguration();
 
             // Assert
-            Assert.AreEqual(_usrConfiguration, userConfig);
+            Assert.IsTrue(success);
         }
 
         [TestMethod]
@@ -80,12 +80,13 @@ namespace TimeConverter.Domain.Test
         {
             // Arrange
             string configKey = "Color";
+            string configValue = "Orange";
 
             // Act
-            string configValue = _serviceMockObject.GetConfigItemValue(configKey);
+            string configValue2 = _serviceMockObject.GetConfigItemValue(configKey);
 
             // Assert
-            Assert.AreEqual("Orange", configValue);
+            Assert.AreEqual(configValue, configValue2);
 
         }
 

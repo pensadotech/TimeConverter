@@ -17,7 +17,7 @@ namespace TimeConverter.Domain.Interfaces.Services
         /// </summary>
         /// <param name="configFilename"></param>
         /// <returns>UserConfiguration</returns>
-        UserConfiguration LoadUserConfiguration();
+        bool LoadUserConfiguration();
 
         /// <summary>
         /// Retreive teh value of a user configuration item

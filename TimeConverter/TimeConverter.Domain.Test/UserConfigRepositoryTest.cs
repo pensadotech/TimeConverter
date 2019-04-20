@@ -6,6 +6,10 @@ using TimeConverter.Domain.Interfaces.Repositories;
 
 namespace TimeConverter.Domain.Test
 {
+    /// <summary>
+    /// Domain Unit test
+    /// This test exercise the User configuration repository that implements IUserConfigRepository
+    /// </summary>
     [TestClass]
     public class UserConfigRepositoryTest
     {

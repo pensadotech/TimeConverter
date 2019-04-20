@@ -66,9 +66,11 @@ namespace TimeConverter.Domain.Services
         /// </summary>
         /// <param name="configFilename"></param>
         /// <returns>UserConfiguration</returns>
-        public UserConfiguration LoadUserConfiguration()
+        public bool LoadUserConfiguration()
         {
-            return _userConfigRepository.LoadUserConfiguration(userConfiguration.ConfigFilename);
+            userConfiguration = _userConfigRepository.LoadUserConfiguration(userConfiguration.ConfigFilename);
+
+            return (userConfiguration != null);
         }
 
         /// <summary>
