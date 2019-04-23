@@ -116,22 +116,7 @@ namespace WpfClient.ViewModels
         }
 
         // Methods .........................................................
-        private void LoadColrAndThemeFromSettings()
-        {   
-            // get from config object the settings fro Coloer and Theme
-            string colorSetting = _userConfigService.GetConfigItemValue(Color_Config_Key);
-            string themeSetting = _userConfigService.GetConfigItemValue(Theme_Config_Key);
-
-            // If found, convert to accent color and theme data
-            if (colorSetting != String.Empty && themeSetting != String.Empty)
-            {
-                // Look AccentColor and theme in the available list, save it 
-                _selectedAccentColorData = _accentColorDataList.FirstOrDefault(a => a.Name == colorSetting);
-                // Look Theme Data in the available list, and apply it
-                _SelectedAppThemeData = _appThemeDataList.FirstOrDefault(t => t.Name == themeSetting);
-            }
-        }
-        
+      
         // Commands 
         private void LoadCommands()
         {
@@ -187,6 +172,23 @@ namespace WpfClient.ViewModels
                     }
                 ).ToList().ToObservableCollection();
         }
+
+        private void LoadColrAndThemeFromSettings()
+        {
+            // get from config object the settings fro Coloer and Theme
+            string colorSetting = _userConfigService.GetConfigItemValue(Color_Config_Key);
+            string themeSetting = _userConfigService.GetConfigItemValue(Theme_Config_Key);
+
+            // If found, convert to accent color and theme data
+            if (colorSetting != String.Empty && themeSetting != String.Empty)
+            {
+                // Look AccentColor and theme in the available list, save it 
+                _selectedAccentColorData = _accentColorDataList.FirstOrDefault(a => a.Name == colorSetting);
+                // Look Theme Data in the available list, and apply it
+                _SelectedAppThemeData = _appThemeDataList.FirstOrDefault(t => t.Name == themeSetting);
+            }
+        }
+
 
         public void InitializeColorAndTheme()
         {
