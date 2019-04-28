@@ -1,4 +1,6 @@
-﻿using DataAccess = TimeConverter.DataAccess;
+﻿using System;
+using System.Configuration;
+using DataAccess = TimeConverter.DataAccess;
 using Domain = TimeConverter.Domain;
 
 namespace WpfClient.ViewModels
@@ -25,13 +27,13 @@ namespace WpfClient.ViewModels
         {
             // INJECTION: Root composition 
             // Option 1: Initialize Repositories and Services by code
-            RootCompositionByCode();
+           // RootCompositionByCode();
 
             // Option 2: Initialize Repositories and Services using configuration settings
-            RootCompositionByConfiguration(); // TODO - add configuration and activate
+            RootCompositionByConfiguration(); 
 
             // Option 3: Initialize Repositories and Services using DI container
-            RootCompositionByDIContainer();  // Use UUNity DI container
+           // RootCompositionByDIContainer();  // TODO: Use Unity DI container
 
             // Initialize ViewModels 
             // The ViewModelLocator has to know about all ViewsModels in the application!
@@ -65,7 +67,24 @@ namespace WpfClient.ViewModels
 
         private void RootCompositionByConfiguration()
         {
-            
+            // Ref: https://jeremylindsayni.wordpress.com/2019/02/11/instantiating-a-c-object-from-a-string-using-activator-createinstance-in-net/
+            // assembly qualified name
+            // "{namespace}.{class name}, "{assembly name}"
+
+            // Repositories
+            var confiRepoTypeName = ConfigurationManager.AppSettings["configurationRepository"];
+            var configRepoType = Type.GetType(confiRepoTypeName, true);
+            _userConfigRepository =
+                (Domain.Interfaces.Repositories.IUserConfigRepository) Activator.CreateInstance(configRepoType);
+
+            var timeConvertionTypeName = ConfigurationManager.AppSettings["timeConvertionFunction"];
+            var timeConvertionType = Type.GetType(timeConvertionTypeName, true);
+            _timeConverterRepository = (Domain.Interfaces.Repositories.ITimeConverterRepository)Activator.CreateInstance(timeConvertionType);
+
+            // Services (represent the seam in the architecture)
+            _timeConverterService = new Domain.Services.TimeConverterService(_timeConverterRepository);
+            _userConfigService = new Domain.Services.UserConfigService(ConfigFilename, _userConfigRepository);
+
         }
 
         private void RootCompositionByDIContainer()
