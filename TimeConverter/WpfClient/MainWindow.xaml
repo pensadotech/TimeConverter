@@ -121,7 +121,9 @@
 
         <TextBlock Grid.Row="4" Grid.Column="2" 
                    Name="ResultInHrsTextBox" 
-                   Foreground="Blue" FontWeight="Bold"
+                   Foreground="Blue"
+                   Background="white"
+                   FontWeight="Bold"
                    FontSize="20" VerticalAlignment="Center" >
             <TextBlock.IsEnabled>
                 <Binding Path="ConvertSecondsToHoursAction" Mode="OneWay" />
@@ -150,7 +152,8 @@
 
         <TextBlock Grid.Row="7" Grid.Column="2" 
                    Name="ResultInSecTextBox" 
-                   Foreground="Blue" FontWeight="Bold"
+                   Foreground="Blue" Background="white"
+                   FontWeight="Bold"
                    FontSize="20" VerticalAlignment="Center">
             <TextBlock.IsEnabled>
                 <Binding Path="ConvertHoursToSecondsAction" Mode="OneWay" />
