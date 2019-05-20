@@ -1,7 +1,8 @@
 # TimeConverter
 
 Converting time to second since midnight.
-_by Armando Pensado_
+
+_by Armando A. Pensado_
 
 ## Description 
 
