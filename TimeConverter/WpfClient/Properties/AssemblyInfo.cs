@@ -7,13 +7,13 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WpfClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("TimeConverterWPF")]
+[assembly: AssemblyDescription("Convert seconds since midgnight to 24 hrs time")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WpfClient")]
+[assembly: AssemblyCompany("Pensadotech")]
+[assembly: AssemblyProduct("TimeConverterWPF")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Pensadotech")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
